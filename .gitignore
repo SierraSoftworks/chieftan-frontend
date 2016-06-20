@@ -3,3 +3,9 @@ node_modules
 dist
 build
 /typings
+/.awcache
+config/tmp
+npm-debug.log
+/electron.js
+/electron.js.map
+/release

@@ -2,10 +2,9 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "es2015",
-    "experimentalDecorators": true,
-    "moduleResolution": "classic",
-    "allowJs": true
+    "experimentalDecorators": true
   },
+
   "exclude": [
     "node_modules"
   ]
