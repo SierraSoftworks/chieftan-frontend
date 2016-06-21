@@ -1,0 +1,44 @@
+<template>
+  <require from="./components/breadcrumb"></require>
+  <require from="./components/task-entry"></require>
+
+  <breadcrumb name.bind="project.name" route="project" route-params.bind="{ project: project.id }"></breadcrumb>
+
+  <div class="row">
+    <div class="col s12 center-align">
+      <h1>${project.name}</h1>
+      <p>${project.description}</p>
+    </div>
+  </div>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a route-href="route: newAction; params.bind: { project: project.id }" class="btn-floating btn-large red">
+      <i class="mi">add</i>
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m6">
+      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
+    </div>
+
+    <div class="col s12 m6">
+      <div class="row">
+        <div class="col s12 m6" repeat.for="action of actions">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title center-align">${action.name}</h3>
+              <p class="center-align">${action.description}</p>
+            </div>
+
+            <div class="card-action">
+              <a route-href="route: action; params.bind: { action: action.id }">Dashboard</a>
+              <a href="#" click.delegate="cloneAction(action)">Clone</a>
+              <a route-href="route: editAction; params.bind: { action: action.id }">Edit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

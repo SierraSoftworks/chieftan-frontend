@@ -1,0 +1,29 @@
+<template>
+  <input if.bind="multiline | boolean | not"
+         class="${validState} ${active ? 'active' : ''} ${canValidate ? 'validate': ''}"
+         type.bind="type"
+         placeholder="${placeholder || '' }"
+         value.bind="value"
+         focus.bind="focused"
+         keyup.delegate="onKeyUp($event)"
+         disabled.bind="disabled | boolean">
+
+  <textarea if.bind="multiline | boolean"
+         class="${validState} ${active ? 'active' : ''} ${canValidate ? 'validate': ''}"
+         placeholder="${placeholder || '' }"
+         value.bind="value"
+         focus.bind="focused"
+         keyup.delegate="onKeyUp($event)"
+         disabled.bind="disabled | boolean"
+         element.ref="textarea"></textarea>
+
+  <label click.delegate="onLabelFocused()"
+         data-valid.bind="validText"
+         data-invalid.bind="invalidText">
+         ${label}
+
+         <span if.bind="require" class="required | boolean">*</span>
+  </label>
+
+  <div class="sizing-div" element.ref="sizingDiv"></div>
+</template>

@@ -1,0 +1,47 @@
+<template>
+  <require from="./components/breadcrumb"></require>
+  <require from="./components/task-entry"></require>
+  <require from="./components/task-snippet"></require>
+
+  <breadcrumb name.bind="action.project.name" route="project" route-params.bind="{ project: action.project.id }"></breadcrumb>
+  <breadcrumb name.bind="action.name" route="action" route-params.bind="{ action: action.id }"></breadcrumb>
+
+  <div class="row">
+    <div class="col s12 center-align">
+      <h1>${action.name}</h1>
+      <p>${action.description}</p>
+
+      <task-snippet action.bind="action"></task-snippet>
+    </div>
+  </div>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a route-href="route: editAction; params.bind: { action: action.id }" class="btn-floating btn-large red">
+      <i class="mi">create</i>
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m8">
+      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
+    </div>
+
+    <div class="col s12 m4">
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="variable of action.vars | keyValue">
+            <td>${variable.key}</td>
+            <td>${variable.value}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</template>

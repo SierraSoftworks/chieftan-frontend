@@ -1,0 +1,68 @@
+<template>
+  <require from="./components/breadcrumb"></require>
+  <require from="./components/terminal"></require>
+  <require from="./components/variable-editor"></require>
+
+  <breadcrumb name.bind="task.project.name" route="project" route-params.bind="{ project: task.project.id }"></breadcrumb>
+  <breadcrumb name.bind="task.action.name" route="action" route-params.bind="{ action: task.action.id }"></breadcrumb>
+  <breadcrumb name="Task" route="task" route-params.bind="{ task: task.id }"></breadcrumb>
+
+  <div class="row">
+    <div class="col s12 center-align">
+      <h1>${task.action.name}</h1>
+      <p>
+        ${task.metadata.description}
+        <br>
+        <a href="${task.metadata.url}" target="_blank">More info</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m6">
+      <terminal style="powershell" name="${task.action.name} - ${task.state}" value.bind="task.output || '::[warning] No output available::' | output"></terminal>
+    </div>
+
+    <div class="col s12 m6">
+      <div class="card" if.bind="task.state != 'Executing'">
+        <div class="card-content">
+          <h2 class="card-title">
+            <button click.delegate="runTask()" class="right btn-floating btn-large green white-text">
+              <i class="mi">play_arrow</i>
+            </button>
+
+            Variables
+          </h2>
+          <p>Configure the values of the variables you wish to use to run this task.</p>
+
+          <variable-editor value.bind="run.vars"></variable-editor>
+        </div>
+      </div>
+
+      <div class="card" if.bind="task.state == 'Executing'">
+        <div class="card-content">
+          <h2 class="card-title">
+            Variables
+          </h2>
+          <p>These are the variables used to execute this task.</p>
+
+          <table class="highlight">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr repeat.for="variable of task.vars | keyValue">
+                <td>${variable.key}</td>
+                <td>${variable.value}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>

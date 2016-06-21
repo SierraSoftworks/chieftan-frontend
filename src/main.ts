@@ -4,7 +4,14 @@ import {bootstrap} from 'aurelia-bootstrapper-webpack';
 bootstrap(async (aurelia: Aurelia) => {
   aurelia.use
     .standardConfiguration()
-    .developmentLogging();
+    .developmentLogging()
+    .globalResources([
+      "converters/boolean",
+      "converters/json",
+      "converters/keyValue",
+      "converters/not",
+      "converters/output",
+    ]);
 
   const rootElement = document.body;
   rootElement.setAttribute('aurelia-app', '');

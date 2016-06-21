@@ -1,0 +1,22 @@
+<template>
+  <div class="navbar-fixed" role="navigation">
+    <nav class="red darken-4">
+      <div class="nav-wrapper">
+        <a route-href="route: projects" class="brand-logo">
+          <i class="mi">call_split</i>
+        </a>
+
+        <div class="breadcrumbs">
+          <a route-href="route: projects" class="breadcrumb">Projects</a>
+          <a href="${crumb.url}" class="breadcrumb" repeat.for="crumb of breadcrumbs.crumbs">${crumb.name}</a>
+        </div>
+
+        <ul class="right hide-on-med-and-down">
+          <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}">
+            <a href.bind="route.href">${route.title}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</template>

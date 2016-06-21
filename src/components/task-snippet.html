@@ -1,0 +1,19 @@
+<template>
+  <require from="./switch"></require>
+  <require from="./terminal"></require>
+
+  <h4>
+    <span class="right">
+      <small>Multiline</small>
+      <switch value.bind="multiline"></switch>
+    </span>
+    Code Snippet
+  </h4>
+
+  <terminal style.bind="language" name="Create New Task - ${language}" value.bind="codeSnippet"></terminal>
+
+  <div class="language-selection">
+    <button class="btn red" click.delegate="language = 'bash'">Bash</button>
+    <button class="btn blue" click.delegate="language = 'powershell'">PowerShell</button>
+  </div>
+</template>

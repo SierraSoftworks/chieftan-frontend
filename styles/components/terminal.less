@@ -1,0 +1,93 @@
+terminal {
+  display: block;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  max-width: 960px;
+
+  .terminal-chrome {
+    position: relative;
+    background: #444;
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 2px 2px 0 0;
+
+    .terminal-title {
+
+    }
+
+    .terminal-chrome-controls {
+      position: absolute;
+      right: 0.6rem;
+      top: 0;
+      bottom: 0;
+
+      .circle {
+        display: inline-block;
+        height: 1rem;
+        width: 1rem;
+        vertical-align: middle;
+        margin: 1rem 0.2rem;
+      }
+    }
+  }
+
+  .terminal-content {
+    padding: 0.5rem;
+    background: #f5f5f5;
+    border-radius: 0 0 2px 2px;
+
+    .info {
+      color: #03a9f4;
+    }
+
+    .warning {
+      color: #ff9800;
+    }
+
+    .error {
+      color: #b71c1c;
+    }
+  }
+
+  &.bash {
+    .terminal-content {
+      background: #000;
+      color: #fff;
+
+      .info {
+        color: #81d4fa;
+      }
+
+      .executable {
+        color: #fff;
+      }
+
+      .value {
+        color: #fff;
+      }
+    }
+  }
+
+  &.powershell {
+    .terminal-content {
+      background: #01579b;
+      color: #fff;
+
+      .info {
+        color: #81d4fa;
+      }
+
+      .executable {
+        color: #00c853;
+      }
+
+      .variable {
+        color: #ffeb3b;
+      }
+
+      .value {
+        color: #fff;
+      }
+    }
+  }
+}

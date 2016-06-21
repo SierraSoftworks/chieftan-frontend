@@ -31,10 +31,10 @@ const coreBundles = {
     'aurelia-binding',
     'aurelia-dependency-injection',
     'aurelia-event-aggregator',
-    'aurelia-fetch-client',
     'aurelia-framework',
     'aurelia-history',
     'aurelia-history-browser',
+    'aurelia-http-client',
     'aurelia-loader',
     'aurelia-loader-webpack',
     'aurelia-logging',
@@ -54,7 +54,7 @@ const coreBundles = {
   ],
   // you may remove certain non-core packages from the 'aurelia' bundle in order to lazy-load them
   excludeFromAureliaBundle: [
-    'aurelia-fetch-client'
+    
   ]
 }
 
@@ -213,6 +213,11 @@ const config = {
       {
         test: /\.json$/,
         loader: 'json'
+      },
+
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
       },
 
       /* HTML loader support for *.html

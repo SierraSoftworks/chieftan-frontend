@@ -1,0 +1,94 @@
+@switch-label-color: #9e9e9e;
+@switch-track-off-color: #818181;
+@switch-track-on-color: #84c7c1;
+@switch-handle-off-color: #f1f1f1;
+@switch-handle-on-color: #26a69a;
+
+switch {
+  &,
+  * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+  }
+  
+  label {
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: @switch-label-color;
+    font-weight: normal;
+    margin: 0;
+    
+    input[type=checkbox] {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      
+      &:checked,
+      &:not(:checked) {
+        position: absolute;
+        left: -9999px;
+        visibility: hidden;
+      }
+      
+      &:not(:disabled) {
+        &~.lever {
+          &:active {
+            &:after {
+              box-shadow: 0 1px 3px 1px rgba(0,0,0,0.4), 0 0 0 15px rgba(0,0,0,0.08);
+            }
+          }
+        }
+      }
+      
+      &:checked {
+        &+.lever {
+          background-color: @switch-track-on-color;
+          &:after {
+            background-color: @switch-handle-on-color;
+            left: 24px;
+          }
+        }
+        
+        &:not(:disabled) {
+          &~.lever {
+            &:active {
+              &:after {
+                box-shadow: 0 1px 3px 1px rgba(0,0,0,0.4), 0 0 0 15px fadeout(@switch-handle-on-color, 90%);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .lever {
+      content: "";
+      display: inline-block;
+      position: relative;
+      width: 40px;
+      height: 15px;
+      background-color: @switch-track-off-color;
+      border-radius: 15px;
+      margin-left: 10px;
+      transition: background 0.3s ease;
+      vertical-align: middle;
+      margin: 0 16px;
+      
+      &:after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        background-color: @switch-handle-off-color;
+        border-radius: 21px;
+        box-shadow: 0 1px 3px 1px rgba(0,0,0,0.4);
+        left: -5px;
+        top: -3px;
+        transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<template>
+  <div class="row" repeat.for="row of rows">
+    <div class="col s4">
+      <input type="text" value.bind="row.key" placeholder.bind="variableName" keyup.delegate="onChanged(row)">
+    </div>
+    <div class="col s8">
+      <input type="text" value.bind="row.value" placeholder.bind="valueName" keyup.delegate="onChanged(row)">
+    </div>
+  </div>
+</template>

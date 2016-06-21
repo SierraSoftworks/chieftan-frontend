@@ -1,0 +1,79 @@
+<template>
+  <require from="./components/input-field"></require>
+  <require from="./components/switch"></require>
+  <require from="./components/variable-editor"></require>
+  <require from="./components/breadcrumb"></require>
+
+  <breadcrumb name.bind="project.name" route="project" route-params.bind="{ project: project.id }"></breadcrumb>
+  <breadcrumb name="New Action" route="newAction" route-params.bind="{ project: project.id }"></breadcrumb>
+
+  <div class="row">
+    <div class="col s6 m4">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="card-title">Action Details</h1>
+          <p>
+            Describe the action you wish to create so that someone can understand its purpose later.
+          </p>
+
+          <input-field label="Action Name" value.bind="details.name" require="true" valid-text="looks good" invalid-text="enter a valid project name" valid.bind="nameValid"></input-field>
+
+          <input-field label="Description" value.bind="details.description" multiline="true" require="true" valid-text="looks good" invalid-text="enter a valid description" valid.bind="descriptionValid"></input-field>
+
+        </div>
+        <div class="card-action">
+          <a href="#" click.delegate="create()">Create Action</a>
+          <a route-href="route: project; params.bind: { project: project.id }">Cancel</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s6 m4">
+      <div class="card">
+        <div class="card-content">
+          <h2 class="card-title">Variables</h2>
+          <p>Make changes to the default variable values for this action's tasks.</p>
+
+          <variable-editor value.bind="details.vars"></variable-editor>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s6 m4">
+      <div class="card">
+        <div class="card-content">
+          <h2 class="card-title">
+            <switch class="pull-right" value.bind="features.http"></switch>
+            
+            HTTP Request
+          </h2>
+          <p>Trigger an HTTP request when a task for this action is executed.</p>
+
+          <div if.bind="!disabledFeatures.http">
+
+            <div class="row">
+              <div class="col s4">
+                <input-field type="text" label="Method" value.bind="details.http.method" require="true">
+              </div>
+              <div class="col s8">
+                <input-field type="text" label="URL" value.bind="details.http.url" require="true">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <variable-editor value.bind="details.http.headers" variable-name="Header"></variable-editor>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <input-field multiline="true" label="Request Data" value.bind="details.http.data"></input-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

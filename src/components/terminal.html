@@ -1,0 +1,16 @@
+<template class="${style}">
+  <div class="terminal-chrome">
+    <div class="terminal-title">
+      ${name}
+    </div>
+    <div class="terminal-chrome-controls">
+      <i class="circle green"></i>
+      <i class="circle yellow"></i>
+      <i class="circle red"></i>
+    </div>
+  </div>
+
+  <div class="terminal-content">
+    <pre><code innerhtml.bind="value"></code></pre>
+  </div>
+</template>

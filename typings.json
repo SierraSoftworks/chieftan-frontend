@@ -1,16 +1,18 @@
 {
   "name": "aurelia-skeleton-navigation-typescript-webpack",
   "version": false,
+  "dependencies": {
+    "aurelia-http-client": "github:aurelia/http-client/dist/aurelia-http-client.d.ts#f00b47bb2d1a01c177ad4366f315080afd5689d6"
+  },
   "devDependencies": {
     "webpack": "registry:npm/webpack#1.12.9+20160418172948"
   },
   "globalDependencies": {
     "aurelia-binding": "github:aurelia/binding/dist/aurelia-binding.d.ts#69d54dbebafe87738f89b8ac4109921544d202cb",
-    "aurelia-bootstrapper-webpack": "github:aurelia/bootstrapper-webpack/dist/aurelia-bootstrapper-webpack.d.ts#cf122f8d2a61161bcc6b785c9dfe47dbc6b3a3ff",    
     "aurelia-bootstrapper": "github:aurelia/bootstrapper/dist/aurelia-bootstrapper.d.ts#111ee4eb1e5df7af39305d190d635df7d93cb7e5",
+    "aurelia-bootstrapper-webpack": "github:aurelia/bootstrapper-webpack/dist/aurelia-bootstrapper-webpack.d.ts#cf122f8d2a61161bcc6b785c9dfe47dbc6b3a3ff",
     "aurelia-dependency-injection": "github:aurelia/dependency-injection/dist/aurelia-dependency-injection.d.ts#dcb53d40d128f5ff89c6bafa587128583529bd68",
     "aurelia-event-aggregator": "github:aurelia/event-aggregator/dist/aurelia-event-aggregator.d.ts#7a38c51dc9082175461e2d0b21a4c0a9242a8925",
-    "aurelia-fetch-client": "github:aurelia/fetch-client/dist/aurelia-fetch-client.d.ts#a97fa7b9484cd78d986b11e537394400c99d02fe",
     "aurelia-framework": "github:aurelia/framework/dist/aurelia-framework.d.ts#e008c4a98147ae39556892a69e5c165947e293a7",
     "aurelia-history": "github:aurelia/history/dist/aurelia-history.d.ts#21e1ecd279b5b6d7525103cf734318103aee5382",
     "aurelia-history-browser": "github:aurelia/history-browser/dist/aurelia-history-browser.d.ts#19e095308a414ab561d3c5b327fcbc756e60f457",
@@ -29,7 +31,8 @@
     "aurelia-templating": "github:aurelia/templating/dist/aurelia-templating.d.ts#aad25d550f316ac2d7cac29c330059897c7d15bd",
     "aurelia-templating-binding": "github:aurelia/templating-binding/dist/aurelia-templating-binding.d.ts#f90d1082b0aa3be71c23e26c1e152b22593a15b5",
     "aurelia-templating-resources": "github:aurelia/templating-resources/dist/aurelia-templating-resources.d.ts#98f81efd2d7270742bfaa1f3c37d8a71a3936172",
-    "aurelia-templating-router": "github:aurelia/templating-router/dist/aurelia-templating-router.d.ts#68460e0398f896c5883be81588bdd5f3855f05c3"
+    "aurelia-templating-router": "github:aurelia/templating-router/dist/aurelia-templating-router.d.ts#68460e0398f896c5883be81588bdd5f3855f05c3",
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236"
   },
   "globalDevDependencies": {
     "angular-protractor": "github:DefinitelyTyped/DefinitelyTyped/angular-protractor/angular-protractor.d.ts#24e12a7af994afa2226af70fbfae0adc78736a9e",
