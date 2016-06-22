@@ -39,8 +39,15 @@ export class APIBase {
       (<Error & {code: number}>err).code = data.code;
       err.name = data.error;
       return Promise.reject<T>(err);
-    } else {
-      return Promise.resolve<T>(response.content);
     }
+    
+    if (response.mimeType !== "application/json") {
+      let err = new Error("The server returned a response which was not of type 'application/json'.");
+      (<Error & {code: number}>err).code = 500;
+      err.name = "Invalid Response";
+      return Promise.reject<T>(err);
+    }
+    
+    return Promise.resolve<T>(response.content);
   }
 }
