@@ -4,7 +4,7 @@ import {ActionsAPI, Action} from "./api/actions";
 import {TasksAPI, Task} from "./api/tasks";
 
 @autoinject
-export class ProjectView {
+export class ActionView {
   constructor(private projectsAPI: ProjectsAPI, private actionsAPI: ActionsAPI, private tasksAPI: TasksAPI) {
 
   }
