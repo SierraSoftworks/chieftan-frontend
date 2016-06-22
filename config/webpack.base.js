@@ -68,7 +68,7 @@ const meta = helpers.generateMeta(coreBundles);
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Aurelia',
+  title: 'Chieftan',
   baseUrl: '/',
   language: helpers.language
 };
