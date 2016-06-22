@@ -21,7 +21,7 @@ export abstract class CodeSnippetGenerator {
 
 export class BashCodeSnippetGenerator extends CodeSnippetGenerator {
   private writeVariable(name: string) {
-    return `<span class="variable">$${name}</span>`;
+    return `<span class="variable">"$${name}"</span>`;
   }
 
   private writeMap(vars: { [name: string]: string; }) {
