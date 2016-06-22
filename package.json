@@ -28,6 +28,7 @@
     "build:dev": "npm run webpack -- --config config/webpack.development.js --progress --profile",
     "prebuild:prod": "npm run clean:dist",
     "build:prod": "npm run webpack -- --config config/webpack.production.js --progress --profile",
+    "postbuild:prod": "cp favicon.ico dist/favicon.ico",
     "start": "npm run server:dev",
     "server": "npm run server:dev",
     "server:dev": "npm run webpack-dev-server -- --config config/webpack.development.js --inline --progress --profile --watch",
