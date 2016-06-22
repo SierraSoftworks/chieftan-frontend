@@ -1,9 +1,10 @@
 import {autoinject} from "aurelia-framework";
+import {Router} from "aurelia-router";
 import {ProjectsAPI, Project} from "./api/projects";
 
 @autoinject
 export class ProjectsView {
-  constructor(private projectsAPI: ProjectsAPI) {
+  constructor(private projectsAPI: ProjectsAPI, private router: Router) {
 
   }
 
@@ -12,6 +13,8 @@ export class ProjectsView {
   activate() {
     return this.projectsAPI.list().then(projects => {
       this.projects = projects;
+    }).catch(() => {
+      this.router.navigateToRoute("config");
     });
   }
 }
