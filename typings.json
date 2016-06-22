@@ -32,7 +32,8 @@
     "aurelia-templating-binding": "github:aurelia/templating-binding/dist/aurelia-templating-binding.d.ts#f90d1082b0aa3be71c23e26c1e152b22593a15b5",
     "aurelia-templating-resources": "github:aurelia/templating-resources/dist/aurelia-templating-resources.d.ts#98f81efd2d7270742bfaa1f3c37d8a71a3936172",
     "aurelia-templating-router": "github:aurelia/templating-router/dist/aurelia-templating-router.d.ts#68460e0398f896c5883be81588bdd5f3855f05c3",
-    "jquery": "registry:dt/jquery#1.10.0+20160417213236"
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "moment-node": "registry:dt/moment-node#2.11.1+20160511043338"
   },
   "globalDevDependencies": {
     "angular-protractor": "github:DefinitelyTyped/DefinitelyTyped/angular-protractor/angular-protractor.d.ts#24e12a7af994afa2226af70fbfae0adc78736a9e",

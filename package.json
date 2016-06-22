@@ -110,6 +110,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.0.0",
     "materialize-css": "^0.97.6",
+    "moment": "^2.13.0",
     "regenerator-runtime": "^0.9.5",
     "ts-helpers": "^1.1.1"
   },

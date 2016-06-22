@@ -11,6 +11,7 @@ bootstrap(async (aurelia: Aurelia) => {
       "converters/keyValue",
       "converters/not",
       "converters/output",
+      "converters/relativeTime",
     ]);
 
   const rootElement = document.body;
