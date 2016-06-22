@@ -1,17 +1,15 @@
 import {autoinject} from "aurelia-framework";
 import {APIBase} from "./api/common";
 import {StatusAPI} from "./api/status";
+import {CodeSnippetConfig, CodeSnippetLanguage, CodeSnippetGenerators} from "./components/code-snippets";
 
 @autoinject
 export class ConfigView {
-  constructor(protected api: APIBase, protected statusAPI: StatusAPI) {
+  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected snippets: CodeSnippetGenerators) {
 
   }
 
-  languages: {
-    id: string;
-    name: string;
-  }[] = [{
+  languages: CodeSnippetLanguage[] = [{
     id: "bash",
     name: "Bash"
   }, {
@@ -19,9 +17,11 @@ export class ConfigView {
     name: "PowerShell"
   }];
 
-  language = this.languages[0];
-
   validateURL(url: string) {
     return this.statusAPI.test();
+  }
+
+  get exampleSnippet(): string {
+    return this.snippets.get(this.taskSnippets.language.id).writeExample();
   }
 }

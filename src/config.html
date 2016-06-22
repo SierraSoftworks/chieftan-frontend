@@ -1,7 +1,6 @@
 <template>
   <require from="./components/input-field"></require>
   <require from="./components/switch"></require>
-  <require from="./components/search-field"></require>
   <require from="./components/select-box"></require>
   <require from="./components/terminal"></require>
 
@@ -12,25 +11,38 @@
           <h2>
             Configure Chieftan
           </h2>
-          <p>
-            Configure your browser to use a specific Chieftan server, or adjust the way
-            things are presented to you.
-          </p>
 
           <h5>Chieftan API</h5>
-          <input-field label="API Server" value.bind="api.url" type="url" valid.call="validateURL($event)" valid-text="server available" invalid-text="server unavailable"></input-field>
-          <input-field label="API Token" value.bind="config.token" type="text"></input-field>
+          <p class="space-bottom">
+            Configure your browser to use a specific Chieftan server and setup your auth
+            token if required.
+          </p>
+
+          <input-field label="API Server" value.bind="api.url & debounce:500" type="url" valid.call="validateURL($event)" valid-text="server available" invalid-text="server unavailable"></input-field>
+          <input-field label="API Token" value.bind="config.token & debounce:500" type="text"></input-field>
 
           <h5>Code Snippets</h5>
+          <p class="space-bottom">
+            Customize the language you receive code snippets in and customize the way they
+            are formatted.
+          </p>
 
-          <search-field></search-field>
+          <div class="row">
+            <div class="col s6">
+              <select-box class="space-bottom" options.bind="languages" value.bind="taskSnippets.language">
+                <template replace-part="current">${value.name}</template>
+                <template replace-part="item">${item.name}</template>
+              </select-box>
+            </div>
+            <div class="col s6">
+              <h5 class="right-align">
+                Multiline
+                <switch value.bind="taskSnippets.multiline"></switch>
+              </h5>
+            </div>
+          </div>
 
-          <select-box options.bind="languages" value.bind="language">
-            <template replace-part="current">${value.name}</template>
-            <template replace-part="item">${item.name} <span class="grey-text">${item.id}</span></template>
-          </select-box>
-
-          <terminal name="Example Terminal" value="echo 'Hello world!'" style.bind="language.id"></terminal>
+          <terminal name="Example Terminal" value.bind="exampleSnippet" style.bind="taskSnippets.language.id" language.bind="taskSnippets.language.id"></terminal>
         </div>
       </div>
     </div>

@@ -1,18 +1,36 @@
-export class CodeSnippetGenerators {
-  generators: {
-    [lang: string]: CodeSnippetGenerator
-  } = {
-    bash: new BashCodeSnippetGenerator(),
-    powershell: new PowerShellCodeSnippetGenerator()
-  } 
+import {autoinject, Container} from "aurelia-framework";
 
-  get(language: string) {
-    return this.generators[language];
+export class CodeSnippetConfig {
+  get language(): CodeSnippetLanguage {
+    const configuredLanguageJSON = localStorage.getItem("language");
+    if (configuredLanguageJSON) return JSON.parse(configuredLanguageJSON);
+    return {
+      id: "bash",
+      name: "Bash"
+    };
+  }
+
+  set language(language: CodeSnippetLanguage) {
+    localStorage.setItem("language", JSON.stringify(language));
+  }
+
+  get multiline(): boolean {
+    return localStorage.getItem("multiline") === "true";
+  }
+
+  set multiline(multiline: boolean) {
+    localStorage.setItem("multiline", multiline ? "true" : "false");
   }
 }
 
+export interface CodeSnippetLanguage {
+  id: string;
+  name: string;
+}
+
+@autoinject
 export abstract class CodeSnippetGenerator {
-  constructor(public multiline: boolean = true) {
+  constructor(protected config: CodeSnippetConfig) {
 
   }
 
@@ -32,11 +50,13 @@ export abstract class CodeSnippetGenerator {
   }
 
   abstract writeHttpRequest(method: string, url: string, vars: StringMap);
+
+  abstract writeExample();
 }
 
 export class BashCodeSnippetGenerator extends CodeSnippetGenerator {
   private writeMap(vars: StringMap) {
-    if (this.multiline) return `"${this.escape(JSON.stringify(vars, null, 2))}"`;
+    if (this.config.multiline) return `"${this.escape(JSON.stringify(vars, null, 2))}"`;
     return `"${this.escape(JSON.stringify(vars))}"`;
   }
 
@@ -47,25 +67,34 @@ export class BashCodeSnippetGenerator extends CodeSnippetGenerator {
       `curl -s -X ${method} -H "Content-Type: application/json" -d "$TASK_DATA" $TASK_URL`
     ].join("\n");
   }
+
+  writeExample() {
+    return [
+      `CHIEFTAN="Cool shit"`,
+      ...[`if [ "$CHIEFTAN" == "Cool shit"]; then`,
+      `  echo "*drops mic*"`,
+      `fi`].reduce((lines, line) => this.config.multiline ? lines.push(line) && lines : [`${(lines[0] ? `${lines[0]}; ` : "")}${line.trim()}`], [])
+    ].join("\n");
+  }
 }
 
 export class PowerShellCodeSnippetGenerator extends CodeSnippetGenerator {
   private indent(lines: string[]) {
-    if (!this.multiline) return lines;
+    if (!this.config.multiline) return lines;
     return lines.map(line => `  ${line}`);
   }
 
   private writeMap(vars: StringMap) {
     const entries = Object.keys(vars).map(key => {
       if (typeof vars[key] === "string") return `"${key}" = "${vars[key]}";`;
-      return `"${key}" = ${this.indent(this.writeMap(<StringMap>vars[key]).split("\n")).join(this.multiline ? "\n" : "").trim()};`
+      return `"${key}" = ${this.indent(this.writeMap(<StringMap>vars[key]).split("\n")).join(this.config.multiline ? "\n" : "").trim()};`
     });
 
     return [
       "@{",
       ...this.indent(entries),
       "}"
-    ].join(this.multiline ? "\n" : "");
+    ].join(this.config.multiline ? "\n" : "");
   }
 
   writeHttpRequest(method: string, url: string, vars: StringMap) {
@@ -75,8 +104,35 @@ export class PowerShellCodeSnippetGenerator extends CodeSnippetGenerator {
       `Invoke-RestMethod -Method ${method} -Header @{ "Content-Type" = "application/json" } -Body (ConvertTo-Json $TASK_DATA) $TASKS_URL`
     ].join("\n");
   }
+
+  writeExample() {
+    return [
+      `$CHIEFTAN = "Cool shit"`,
+      ...[`if ($CHIEFTAN -eq "Cool shit") {`,
+      `  Write-Host "*drops mic*"`,
+      `}`].reduce((lines, line) => this.config.multiline ? lines.push(line) && lines : [`${(lines[0] ? `${lines[0]}; ` : "")}${line.trim()}`], [])
+    ].join("\n");
+  }
 }
 
 interface StringMap {
   [name: string]: string|StringMap;
+}
+
+@autoinject
+export class CodeSnippetGenerators {
+  constructor(protected container: Container) {
+
+  }
+
+  generators: {
+    [lang: string]: CodeSnippetGenerator
+  } = {
+    bash: this.container.get(BashCodeSnippetGenerator),
+    powershell: this.container.get(PowerShellCodeSnippetGenerator)
+  } 
+
+  get(language: string) {
+    return this.generators[language];
+  }
 }

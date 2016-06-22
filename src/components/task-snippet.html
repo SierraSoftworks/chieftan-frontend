@@ -5,15 +5,10 @@
   <h4>
     <span class="right">
       <small>Multiline</small>
-      <switch value.bind="multiline"></switch>
+      <switch value.bind="config.multiline"></switch>
     </span>
     Code Snippet
   </h4>
 
-  <terminal style.bind="language" name="Create New Task - ${language}" language.bind="language" value.bind="codeSnippet"></terminal>
-
-  <div class="language-selection">
-    <button class="btn red" click.delegate="language = 'bash'">Bash</button>
-    <button class="btn blue" click.delegate="language = 'powershell'">PowerShell</button>
-  </div>
+  <terminal style.bind="config.language.id" name="Create New Task - ${config.language.name}" language.bind="config.language.id" value.bind="codeSnippet"></terminal>
 </template>
