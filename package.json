@@ -47,7 +47,8 @@
     "node-babel": "node -r babel-register",
     "webpack": "npm run node-babel -- ./node_modules/webpack/bin/webpack",
     "webpack-dev-server": "npm run node-babel -- ./node_modules/webpack-dev-server/bin/webpack-dev-server",
-    "typings:install": "cross-env ./node_modules/.bin/typings install"
+    "typings:install": "cross-env ./node_modules/.bin/typings install",
+    "typings:prune": "cross-env ./node_modules/.bin/typings prune"
   },
   "repository": {
     "type": "git",

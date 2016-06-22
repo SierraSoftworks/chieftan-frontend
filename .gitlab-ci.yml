@@ -14,7 +14,7 @@ npm:install:
   script:
     - npm install
     - npm prune
-    - typings prune
+    - npm run typings:prune
   cache:
     paths:
       - node_modules
