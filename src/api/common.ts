@@ -1,9 +1,10 @@
 import {autoinject} from "aurelia-framework";
+import {Router} from "aurelia-router";
 import {HttpClient, HttpResponseMessage} from "aurelia-http-client";
 
 @autoinject
 export class APIBase {
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient, private router: Router) {
     http.configure(b => {
       b.withBaseUrl(`${this.url}/api/v1`);
       this.token && b.withHeader("Authorization", `Token ${this.token}`);
@@ -62,6 +63,9 @@ export class APIBase {
       let err = new Error(data.message);
       (<Error & {code: number}>err).code = data.code;
       err.name = data.error;
+
+      if (response.statusCode === 401) this.router.navigateToRoute("config");
+
       return Promise.reject<T>(err);
     }
     
