@@ -27,8 +27,8 @@ export class TaskSnippet {
     return generator.writeHttpRequest("POST", `${this.api.url}/api/v1/action/${this.action.id}/tasks`, {
       vars: vars,
       metadata: {
-        description: "A new task",
-        url: "http://github.com/SierraSoftworks"
+        description: this.action.description,
+        url: this.action.project.url
       }
     });
   }
