@@ -18,8 +18,14 @@ export class TaskSnippet {
   get codeSnippet(): string {
     const generator = this.generators.get(this.language);
     generator.multiline = this.multiline;
+
+    const vars = Object.assign({}, this.action.vars);
+    for(var k in vars) {
+      if (vars[k]) delete vars[k];
+    }
+
     return generator.writeHttpRequest("POST", `${this.api.url}/api/v1/action/${this.action.id}/tasks`, {
-      vars: this.action.vars,
+      vars: vars,
       metadata: {
         description: "A new task",
         url: "http://github.com/SierraSoftworks"
