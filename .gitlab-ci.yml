@@ -1,0 +1,57 @@
+stages:
+  - dependencies
+  - build
+  - test
+  - release
+  - deploy
+
+variables:
+  CHIEFTAN_SERVER: http://chieftan.farmtracksa.com
+  PROJECT_URL: https://git.emss.co.za/chieftan/server
+
+npm:install:
+  stage: dependencies
+  script:
+    - npm install
+  cache:
+    paths:
+      - node_modules
+  artifacts:
+    name: $CI_BUILD_REF-dependencies
+    paths:
+      - node_modules/
+
+npm:build:
+  stage: build
+  dependencies:
+    - npm:install
+  script:
+    - npm run build:prod
+  artifacts:
+    name: $CI_BUILD_REF-app
+    paths:
+      - dist/
+      - package.json
+
+# npm:test:
+#   stage: test
+#   dependencies:
+#     - npm:install
+#     - npm:build
+#   script:
+#     - npm test
+
+gitlab:release:
+  stage: release
+  dependencies:
+    - npm:build
+  script:
+    - 'echo "Registering release task"'
+    - 'TASK_DATA=$(printf ''{"vars": { "BUILD": "%s", "VERSION": "%s" }, "metadata": { "description": "Version %s of the Chieftan Frontend (Build %s)", "url": "%s/commit/%s/builds" }}'' "$CI_BUILD_ID" "$CI_BUILD_REF" "$CI_BUILD_REF" "$CI_BUILD_ID" "$PROJECT_URL" "$CI_BUILD_REF")'
+    - 'curl -s -X POST -H "Content-Type: application/json" -d "$TASK_DATA" "$CHIEFTAN_SERVER/api/v1/action/576a795f37e18a6843521461/tasks"'
+    - 'curl -s -X POST -H "Content-Type: application/json" -d "$TASK_DATA" "$CHIEFTAN_SERVER/api/v1/action/576a797837e18a6843521462/tasks"'
+  artifacts:
+    name: $CI_BUILD_REF
+    paths:
+      - dist/
+      - package.json
