@@ -6,9 +6,33 @@ export class APIBase {
   constructor(protected http: HttpClient) {
     http.configure(b => {
       b.withBaseUrl(`${this.url}/api/v1`);
+      this.token && b.withHeader("Authorization", `Token ${this.token}`);
     });
   }
 
+  private get _token(): string {
+    const configuredServer = localStorage.getItem("token");
+    return configuredServer || "";
+  }
+
+  private set _token(token: string) {
+    localStorage.setItem("token", token);
+  }
+
+  private _cached_token: string = null;
+
+  get token(): string {
+    return this._cached_token || (this._cached_token = this._token);
+  }
+
+  set token(token: string) {
+    this._token = token;
+    this._cached_token = token;
+    this.http.configure(b => {
+      token && b.withHeader("Authorization", `Token ${token}`);
+    });
+  }
+  
   private get _url(): string {
     const configuredServer = localStorage.getItem("server");
     return configuredServer || `${location.protocol}//${location.host}`;

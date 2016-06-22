@@ -21,6 +21,10 @@ export class ConfigView {
     return this.statusAPI.test();
   }
 
+  validateToken(token: string) {
+    return Promise.reject(new Error("Tokens are not yet supported"));
+  }
+
   get exampleSnippet(): string {
     return this.snippets.get(this.taskSnippets.language.id).writeExample();
   }

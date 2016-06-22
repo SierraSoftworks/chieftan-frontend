@@ -19,7 +19,7 @@
           </p>
 
           <input-field label="API Server" value.bind="api.url & debounce:500" type="url" valid.call="validateURL($event)" valid-text="server available" invalid-text="server unavailable"></input-field>
-          <input-field label="API Token" value.bind="config.token & debounce:500" type="text"></input-field>
+          <input-field label="API Token" value.bind="api.token & debounce:500" type="text" valid.call="validateToken($event)" valid-text="token valid" invalid-text="token invalid"></input-field>
 
           <h5>Code Snippets</h5>
           <p class="space-bottom">
