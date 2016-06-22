@@ -7,7 +7,7 @@ stages:
 
 variables:
   CHIEFTAN_SERVER: http://chieftan.farmtracksa.com
-  PROJECT_URL: https://git.emss.co.za/chieftan/server
+  PROJECT_URL: https://git.emss.co.za/chieftan/frontend
 
 npm:install:
   stage: dependencies
