@@ -12,7 +12,7 @@ const jsonfile = require('jsonfile');
 const del = require('del');
 
 const pkg = JSON.parse(fs.readFileSync(root('package.json')));
-const language = (process.env.AURELIA_LANGUAGE || pkg.language || 'javascript').toLowerCase();
+const language = (process.env.AURELIA_LANGUAGE || pkg.language || 'typescript').toLowerCase();
 const readdir = require('recursive-readdir-sync');
 const moduleType = 'es2015'; // in case of weird problems try 'commonjs'; uncompressed bundle will be ~35KB larger
 

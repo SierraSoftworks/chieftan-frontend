@@ -5,7 +5,7 @@ exports.config = {
 
   // use `npm run e2e`
   specs: [
-    helpers.root(helpers.language === 'javascript' ? 'test/e2e/**/*.js' : 'test/e2e/**/*.ts')
+    helpers.root('test/e2e/**/*.ts')
   ],
   exclude: [],
 
@@ -30,11 +30,7 @@ exports.config = {
   },
 
   onPrepare: function() {
-    if (helpers.language === 'javascript') {
-      require('babel-register');
-    } else {
-      require('ts-babel-node-extendable').register({ compilerOptions: { allowJs: false } });
-    }
+    require('ts-babel-node-extendable').register({ compilerOptions: { allowJs: false } });
   },
 
   /**

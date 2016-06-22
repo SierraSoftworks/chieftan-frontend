@@ -6,7 +6,7 @@
 import webpack from 'webpack';
 import * as helpers from './helpers';
 
-const compilerSpecific = helpers.language === 'javascript' ? require('./webpack.base-javascript').default : require('./webpack.base-typescript').default;
+const compilerSpecific = require('./webpack.base-typescript').default;
 
 /*
  * Webpack Plugins
@@ -58,9 +58,7 @@ const coreBundles = {
   ]
 }
 
-if (helpers.language === 'typescript') {
-  coreBundles.bootstrap.push('ts-helpers');
-}
+coreBundles.bootstrap.push('ts-helpers');
 
 const meta = helpers.generateMeta(coreBundles);
 
@@ -158,8 +156,6 @@ const config = {
      * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
      */
     preLoaders: [
-
-      ...compilerSpecific.module.preLoaders,
 
       /*
        * Source map loader support for *.js files
@@ -295,8 +291,6 @@ const config = {
 
 };
 
-if (helpers.language === 'typescript') {
-  config.entry['aurelia-bootstrap'].splice(0, 0, 'ts-helpers');
-}
+config.entry['aurelia-bootstrap'].splice(0, 0, 'ts-helpers');
 
 export default config;

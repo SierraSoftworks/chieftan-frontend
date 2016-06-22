@@ -96,23 +96,6 @@ const config = {
   ],
 
   /**
-   * Static analysis linter for TypeScript advanced options configuration
-   * Description: An extensible linter for the TypeScript language.
-   *
-   * See: https://github.com/wbuchwalter/tslint-loader
-   */
-  tslint: {
-    emitErrors: false,
-    failOnHint: false,
-    resourcePath: 'src'
-  },
-
-  eslint: {
-    emitError: false,
-    configFile: helpers.root('.eslintrc')
-  },
-
-  /**
    * Webpack Development Server configuration
    * Description: The webpack-dev-server is a little node.js Express server.
    * The server emits information about the compilation state to the client,

@@ -3,14 +3,6 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 
 const config = {
   module: {
-    preLoaders: [
-      /*
-       * Tslint loader support for *.ts files
-       *
-       * See: https://github.com/wbuchwalter/tslint-loader
-       */
-       { test: /\.ts$/, loader: 'tslint', exclude: [ helpers.root('node_modules'), helpers.root('config') ] }
-    ],
     loaders: [
       /*
        * Typescript loader support for .ts

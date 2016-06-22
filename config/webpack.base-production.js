@@ -127,23 +127,6 @@ const config = {
   ],
 
   /**
-   * Static analysis linter for TypeScript advanced options configuration
-   * Description: An extensible linter for the TypeScript language.
-   *
-   * See: https://github.com/wbuchwalter/tslint-loader
-   */
-  tslint: {
-    emitErrors: true,
-    failOnHint: true,
-    resourcePath: 'src'
-  },
-
-  eslint: {
-    emitError: true,
-    configFile: helpers.root('.eslintrc')
-  },
-
-  /**
    * Html loader advanced options
    *
    * See: https://github.com/webpack/html-loader#advanced-options
