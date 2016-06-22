@@ -16,10 +16,12 @@ npm:install:
   cache:
     paths:
       - node_modules
+      - typings
   artifacts:
     name: $CI_BUILD_REF-dependencies
     paths:
-      - node_modules/
+      - node_modules
+      - typings
 
 npm:build:
   stage: build
