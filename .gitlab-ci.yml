@@ -13,6 +13,8 @@ npm:install:
   stage: dependencies
   script:
     - npm install
+    - npm prune
+    - typings prune
   cache:
     paths:
       - node_modules
