@@ -1,9 +1,9 @@
 {
-  "name": "aurelia-skeleton-navigation-webpack",
+  "name": "chieftan-frontend",
   "version": "1.0.0-beta.1.2.6",
-  "description": "A starter kit for building a standard navigation-style app with Aurelia and webpack.",
+  "description": "A frontend interface for managing a chieftan server.",
   "main": "dist/electron.js",
-  "productName": "Aurelia Electron",
+  "productName": "Chieftan",
   "scripts": {
     "postinstall": "node ./config/select-language && npm run typings:install",
     "test": "npm run node-babel -- ./node_modules/karma/bin/karma start config/karma.conf.js",
@@ -50,28 +50,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/aurelia/skeleton-navigation.git"
+    "url": "git+ssh://git@git.emss.co.za:chieftan/frontend.git"
   },
-  "keywords": [
-    "aurelia",
-    "skeleton",
-    "navigation",
-    "webpack"
-  ],
   "license": "CC0-1.0",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
-  "contributors": [
-    {
-      "name": "Arjen de Blok"
-    },
-    {
-      "name": "Bazyli Brzóska <bazyli.brzoska@gmail.com> (https://invent.life)"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/aurelia/skeleton-navigation/issues"
-  },
-  "homepage": "https://github.com/aurelia/skeleton-navigation#readme",
+  "author": "Benjamin Pannell <bpannell@emss.co.za>",
+  "homepage": "https://git.emss.co.za/chieftan/frontend",
   "aurelia": {
     "build": {
       "resources": [
