@@ -20,7 +20,7 @@ export class NewProjectActionView {
   };
 
   activate(params: { project: string; }) {
-    const persistedStateJSON = localStorage.getItem("newProjectActionState");
+    const persistedStateJSON = localStorage.getItem("newActionState");
     if (persistedStateJSON) {
       const persistedState = JSON.parse(persistedStateJSON);
       this.details = persistedState;
@@ -33,7 +33,7 @@ export class NewProjectActionView {
   }
 
   deactivate() {
-    localStorage.setItem("newProjectActionState", JSON.stringify(this.details));
+    localStorage.setItem("newActionState", JSON.stringify(this.details));
   }
 
   create() {
@@ -48,7 +48,7 @@ export class NewProjectActionView {
       features[k] = this.details[k];
     }
     this.actionsAPI.create(this.project.id, features).then(action => {
-      this.router.navigateToRoute("projectAction", { project: this.project.id, action: action.id });
+      this.router.navigateToRoute("action", { action: action.id });
     }, err => {
       this.error = err;
     });

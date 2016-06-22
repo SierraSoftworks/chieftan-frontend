@@ -29,13 +29,13 @@ export class ProjectView {
   }
 
   cloneAction(action: Action) {
-    localStorage.setItem("newProjectActionState", JSON.stringify({
+    localStorage.setItem("newActionState", JSON.stringify({
       name: null,
       description: null,
       vars: action.vars,
       http: action.http
     }));
 
-    this.router.navigateToRoute("newProjectAction", { project: this.project.id });
+    this.router.navigateToRoute("newAction", { project: this.project.id });
   }
 }

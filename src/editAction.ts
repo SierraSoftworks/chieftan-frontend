@@ -49,7 +49,7 @@ export class EditProjectActionView {
     }
 
     this.actionsAPI.update(this.project.id, this.action.id, features).then(action => {
-      this.router.navigateToRoute("projectAction", { project: this.project.id, action: action.id });
+      this.router.navigateToRoute("action", { action: action.id });
     }, err => {
       this.error = err;
     });
