@@ -33,7 +33,7 @@ export class BashCodeSnippetGenerator extends CodeSnippetGenerator {
     if (typeof vars === "string") value = `"${vars}"`;
     else value = this.writeMap(vars);
 
-    return `<span class="variable">${name}</span> = ${this.writeValue(value)}`;
+    return `<span class="variable">${name}</span>=${this.writeValue(value)}`;
   }
 
   private writeExecutable(name: string) {
