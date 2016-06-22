@@ -11,7 +11,7 @@ export class ProjectView {
 
   task: Task = null;
   action: Action = null;
-  refreshIntervalHandle: number = null;
+  private refreshIntervalHandle: number = null;
 
   run: {
     vars: { [variable: string]: string };
@@ -31,6 +31,11 @@ export class ProjectView {
         })
       ])
     });
+  }
+
+  deactivate() {
+    if (this.refreshIntervalHandle)
+      clearInterval(this.refreshIntervalHandle);
   }
 
   refreshTask() {

@@ -14,7 +14,13 @@ export class ProjectView {
   actions: Action[] = [];
   tasks: Task[] = [];
 
+  private refreshIntervalHandle: number = null;
+
   activate(params: { project: string; }) {
+    this.refreshIntervalHandle = setInterval(() => {
+      this.refreshTasks();
+    }, 5000);
+
     return Promise.all([
       this.projectsAPI.get(params.project).then(project => {
         this.project = project;
@@ -26,6 +32,16 @@ export class ProjectView {
         this.tasks = tasks;
       })
     ]);
+  }
+
+  dactivate() {
+    clearTimeout(this.refreshIntervalHandle);
+  }
+
+  refreshTasks() {
+    return this.tasksAPI.recent("project", this.project.id).then(tasks => {
+      this.tasks = tasks;
+    });
   }
 
   cloneAction(action: Action) {
