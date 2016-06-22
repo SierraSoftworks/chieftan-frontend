@@ -1,14 +1,17 @@
 import {autoinject} from "aurelia-framework";
 import {HttpClient, HttpResponseMessage} from "aurelia-http-client";
 
-export class Configuration {
-  constructor() {
-    
+@autoinject
+export class APIBase {
+  constructor(protected http: HttpClient) {
+    http.configure(b => {
+      b.withBaseUrl(`${this.url}/api/v1`);
+    });
   }
 
   private get _url(): string {
     const configuredServer = localStorage.getItem("server");
-    return configuredServer || "http://localhost:3001";
+    return configuredServer || `${location.protocol}//${location.host}`;
   }
 
   private set _url(url: string) {
@@ -23,14 +26,8 @@ export class Configuration {
   set url(url: string) {
     this._url = url;
     this._cached_url = url;
-  }
-}
-
-@autoinject
-export class APIBase {
-  constructor(protected http: HttpClient, protected config: Configuration) {
-    http.configure(b => {
-      b.withBaseUrl(`${config.url}/api/v1`);
+    this.http.configure(b => {
+      b.withBaseUrl(`${this.url}/api/v1`);
     });
   }
 

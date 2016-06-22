@@ -17,6 +17,7 @@ export class App {
       { route: 'project/:project/tasks', name: 'tasks', moduleId: './tasks', nav: false, title: 'Tasks' },
       { route: 'action/:action/tasks', name: 'actionTasks', moduleId: './actionTasks', nav: false, title: 'Tasks' },
       { route: 'task/:task', name: 'task', moduleId: './task', nav: false, title: 'Task' },
+      { route: 'config', name: 'config', moduleId: './config', nav: true, title: 'Settings' },
     ]);
 
     this.router = router;

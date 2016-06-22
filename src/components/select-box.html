@@ -1,0 +1,31 @@
+<template>
+  <require from="./search-field"></require>
+
+  <div class="select-box-control ${active ? 'active' : ''}">
+    <div class="select-box-input">
+      <input type="search" value.bind="filter" placeholder.bind="placeholder" focus.bind="active & debounce:100" keyup.delegate="onKeyDown($event)">
+      <label click.delegate="toggle()">
+        <i class="mi for-inactive">reorder</i>
+        <i class="mi for-active">search</i>
+      </label>
+    </div>
+
+    <div class="select-box-current ${value ? 'has-value' : 'no-value'}">
+      <div class="select-box-current-value">
+        <template replaceable part="current">
+          ${value}
+        </template>
+      </div>
+    </div>
+  </div>
+
+  <div class="select-box-dropdown ${active ? 'active' : ''}">
+    <div class="select-box-items">
+      <a class="select-box-item ${value == item ? 'active' : ''} ${$index === highlightIndex ? 'highlight' : ''}" repeat.for="item of availableOptions" click.delegate="selectItem(item)">
+        <template replaceable part="item">
+          ${item}
+        </template>
+      </a>
+    </div>
+  </div>
+</template>

@@ -18,12 +18,13 @@ export class InputField {
   value: string;
   @bindable placeholder: string;
   @bindable type: string = "text";
-  @bindable valid: string|boolean|((value: string) => boolean) = null;
+  @bindable valid: string|boolean|((value: string) => boolean|Promise<void>) = null;
   @bindable disabled: boolean|string = false;
   @bindable multiline: boolean|string = false;
   @bindable require: boolean|string = false;
   validText: string = "right";
   invalidText: string = "wrong";
+  resolvedValidity: boolean|string = null;
 
   focused: boolean = false;
   @bindable enter: () => void;
@@ -45,11 +46,17 @@ export class InputField {
     return typeof this.valid === "function" || typeof this.valid === "boolean";
   }
 
-  @computedFrom("valid", "value")
+  @computedFrom("valid", "value", "resolvedValidity")
   get validState(): string {
     if (!this.value) return "";
     if (typeof this.valid === "function") {
-      let valid = (<(value: string) => boolean>this.valid)(this.value);
+      let valid = (<(value: string) => boolean|Promise<void>>this.valid)(this.value);
+      if (typeof (<Promise<void>>valid).then === "function") (<Promise<void>>valid).then(() => {
+        this.resolvedValidity = true;
+      }, () => {
+        this.resolvedValidity = false;
+      });
+      if (typeof valid !== "boolean" && typeof this.resolvedValidity === "boolean") return this.resolvedValidity ? "valid" : "invalid";
       if (typeof valid !== "boolean") return "";
       return valid ? "valid" : "invalid";
     } else if (typeof this.valid === "boolean") {

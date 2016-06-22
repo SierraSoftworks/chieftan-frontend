@@ -1,11 +1,11 @@
 import {autoinject, bindable, computedFrom} from "aurelia-framework";
 import {Action} from "../api/actions";
 import {CodeSnippetGenerators} from "./code-snippets";
-import {Configuration} from "../api/common";
+import {APIBase} from "../api/common";
 
 @autoinject
 export class TaskSnippet {
-  constructor(private config: Configuration, private generators: CodeSnippetGenerators) {
+  constructor(private api: APIBase, private generators: CodeSnippetGenerators) {
 
   }
 
@@ -18,7 +18,7 @@ export class TaskSnippet {
   get codeSnippet(): string {
     const generator = this.generators.get(this.language);
     generator.multiline = this.multiline;
-    return generator.writeRequest("POST", `${this.config.url}/api/v1/action/${this.action.id}/tasks`, {
+    return generator.writeHttpRequest("POST", `${this.api.url}/api/v1/action/${this.action.id}/tasks`, {
       vars: this.action.vars,
       metadata: {
         description: "A new task",

@@ -4,6 +4,7 @@
  */
 
 // we want font-awesome to load as soon as possible to show the fa-spinner
+import 'materialize-css/dist/css/materialize.css';
 import './styles/styles.less';
 
 // comment out if you don't want a Promise polyfill (remove also from config/webpack.common.js)
