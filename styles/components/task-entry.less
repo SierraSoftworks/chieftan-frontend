@@ -1,10 +1,22 @@
 task-entry {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin: 0.8rem 0 0.6rem 0;
-  clear: both;
+
+  .task-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .task-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 
   .task-status {
-    float: left;
     width: 100px;
     text-align: center;
     vertical-align: middle;
@@ -16,16 +28,14 @@ task-entry {
   }
 
   .task-title {
-    float: left;
-
     h5 {
       margin: 0 0 0.3rem 0;
     }
   }
 
   .task-controls {
-    float: right;
-
+    width: 100px;
+    
     .circle {
       padding: 15px;
       border-radius: 50%; 
