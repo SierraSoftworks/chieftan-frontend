@@ -1,5 +1,14 @@
 nav .brand-logo {
-  position: static;
+  padding: 0 2rem;
+}
+
+nav .button-collapse i {
+  font-size: 1.5rem;
+  padding: 0 1rem;
+}
+
+nav .breadcrumbs {
+  margin-left: 5rem; 
 }
 
 .brand-logo .mi {
@@ -10,4 +19,12 @@ nav .breadcrumbs {
   display: inline-block;
   vertical-align: top;
   padding: 0 1rem;
+}
+
+.side-nav {
+  transition: transform .3s ease;
+
+  &.active {
+    transform: translateX(0px);
+  }
 }
