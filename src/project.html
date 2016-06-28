@@ -18,11 +18,14 @@
   </div>
 
   <div class="row">
-    <div class="col s12 m6">
-      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
-    </div>
 
     <div class="col s12 m6">
+      <div class="row">
+        <div class="col s12">
+          <h4 class="center-align">Actions</h4>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col s12 m6" repeat.for="action of actions">
           <div class="card">
@@ -40,5 +43,16 @@
         </div>
       </div>
     </div>
+
+    <div class="col s12 m6">
+      <div class="row">
+        <div class="col s12">
+          <h4 class="center-align">Recent Tasks</h4>
+        </div>
+      </div>
+
+      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
+    </div>
+    
   </div>
 </template>

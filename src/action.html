@@ -22,25 +22,42 @@
   </div>
 
   <div class="row">
-    <div class="col s12 m8">
-      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
+
+    <div class="col s12 m4 push-m8">
+      <div class="row">
+        <div class="col s12">
+          <h4>Variables</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <table class="highlight">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr repeat.for="variable of action.vars | keyValue">
+                <td>${variable.key}</td>
+                <td>${variable.value}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <div class="col s12 m4">
-      <table class="highlight">
-        <thead>
-          <tr>
-            <th>Variable</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr repeat.for="variable of action.vars | keyValue">
-            <td>${variable.key}</td>
-            <td>${variable.value}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col s12 m8 pull-m4">
+      <div class="row">
+        <div class="col s12">
+          <h4>Recent Tasks</h4>
+        </div>
+      </div>
+
+      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
     </div>
 
   </div>
