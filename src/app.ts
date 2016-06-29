@@ -6,6 +6,7 @@ export class App {
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Chieftan';
+    config.options.pushState = true;
     config.map([
       { route: '', name: 'projects', moduleId: './projects', nav: false, title: 'Projects' },
       { route: 'project/new', name: 'newProject', moduleId: './newProject', nav: false, title: 'New Project' },
