@@ -34,7 +34,7 @@ export class TasksAPI extends APIBase {
       .then(res => this.handleResponse<Task>(res));
   }
 
-  run(id: string, configuration: string, vars: { [name: string]: string; } = {}): Promise<Task> {
+  run(id: string, configuration?: string, vars: { [name: string]: string; } = {}): Promise<Task> {
     return this.http.createRequest(`/task/${id}/run`)
       .asPost()
       .withContent({
