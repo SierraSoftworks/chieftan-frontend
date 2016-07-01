@@ -27,6 +27,10 @@ export class VariableEditor {
     this.updateRowsFromValue(this.value);
   }
 
+  valueChanged() {
+    this.updateRowsFromValue(this.value);
+  }
+
   updateRowsFromValue(value: { [name: string]: string; }) {
     const newRows: Row[] = [];
     if (value) {
