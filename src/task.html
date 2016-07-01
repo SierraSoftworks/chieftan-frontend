@@ -55,7 +55,7 @@
           </h2>
           <p>Configure the values of the variables you wish to use to run this task.</p>
 
-          <variable-editor value.bind="run.vars"></variable-editor>
+          <variable-editor value.bind="vars"></variable-editor>
         </div>
       </div>
 
@@ -74,7 +74,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr repeat.for="variable of task.vars | keyValue">
+              <tr repeat.for="variable of vars | keyValue">
                 <td>${variable.key}</td>
                 <td>${variable.value}</td>
               </tr>

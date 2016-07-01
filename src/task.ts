@@ -1,12 +1,12 @@
-import {autoinject} from "aurelia-framework";
+import {autoinject, BindingEngine, Disposable} from "aurelia-framework";
 import {ProjectsAPI, Project} from "./api/projects";
 import {ActionsAPI, Action, ActionConfiguration} from "./api/actions";
 import {TasksAPI, Task} from "./api/tasks";
 
 @autoinject
 export class ProjectView {
-  constructor(private projectsAPI: ProjectsAPI, private actionsAPI: ActionsAPI, private tasksAPI: TasksAPI) {
-
+  constructor(private projectsAPI: ProjectsAPI, private actionsAPI: ActionsAPI, private tasksAPI: TasksAPI, private bindingEngine: BindingEngine) {
+    this.configurationChangeSubscription = this.bindingEngine.propertyObserver(this, "configuration").subscribe(() => this.configurationChanged());
   }
 
   task: Task = null;
@@ -14,12 +14,9 @@ export class ProjectView {
   private refreshIntervalHandle: number = null;
 
   configuration: ActionConfiguration = null;
+  private configurationChangeSubscription: Disposable;
 
-  run: {
-    vars: { [variable: string]: string };
-  } = {
-    vars: {}
-  };
+  vars: { [variable: string]: string } = {};
 
   activate(params: { task: string; }) {
     return this.tasksAPI.get(params.task).then(task => {
@@ -29,7 +26,7 @@ export class ProjectView {
       return Promise.all([
         this.actionsAPI.get(task.action.id).then(action => {
           this.action = action
-          this.run.vars = Object.assign({}, action.vars, task.vars);
+          this.configuration = action.configurations && action.configurations[0];
         })
       ])
     });
@@ -38,20 +35,28 @@ export class ProjectView {
   deactivate() {
     if (this.refreshIntervalHandle)
       clearInterval(this.refreshIntervalHandle);
+
+    this.configurationChangeSubscription.dispose();
   }
 
   refreshTask() {
     this.tasksAPI.get(this.task.id).then(task => {
       this.task = task;
       this.taskChanged();
+
+      this.configurationChanged();
     });
   }
 
   runTask(configuration?: string) {
-    this.tasksAPI.run(this.task.id, configuration, this.run.vars).then(task => {
+    this.tasksAPI.run(this.task.id, configuration, this.vars).then(task => {
       this.task = task;
       this.taskChanged();
     });
+  }
+
+  configurationChanged() {
+    this.vars = Object.assign({}, this.action.vars, this.task.vars, this.vars, this.configuration && this.configuration.vars || {});
   }
 
   taskChanged() {
