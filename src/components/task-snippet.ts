@@ -20,6 +20,8 @@ export class TaskSnippet {
     }
 
     return generator.writeHttpRequest("POST", `${this.api.url}/api/v1/action/${this.action.id}/tasks`, {
+      Authorization: `Token ${this.api.token}`
+    }, {
       vars: vars,
       metadata: {
         description: this.action.description,

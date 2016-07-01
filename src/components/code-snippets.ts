@@ -49,7 +49,7 @@ export abstract class CodeSnippetGenerator {
     return this.escapeWith(value, this.escapeCharacter, ...against);
   }
 
-  abstract writeHttpRequest(method: string, url: string, vars: StringMap);
+  abstract writeHttpRequest(method: string, url: string, headers: StringMap, vars: StringMap);
 
   abstract writeExample();
 }
@@ -60,11 +60,21 @@ export class BashCodeSnippetGenerator extends CodeSnippetGenerator {
     return `"${this.escape(JSON.stringify(vars))}"`;
   }
 
-  writeHttpRequest(method: string, url: string, vars: StringMap) {
+  private writeHeaders(headers: StringMap) {
+    return Object.keys(headers).filter(header => {
+      return typeof headers[header] === "string";
+    }).map(header => {
+      return `-H "${header}: ${headers[header]}"`;
+    }).join(" ");
+  }
+
+  writeHttpRequest(method: string, url: string, headers: StringMap, vars: StringMap) {
+    Object.assign(headers, { "Content-Type": "application/json" });
+    
     return [
       `TASK_URL="${this.escape(url)}"`,
       `TASK_DATA=${this.writeMap(vars)}`,
-      `curl -s -X ${method} -H "Content-Type: application/json" -d "$TASK_DATA" $TASK_URL`
+      `curl -s -X ${method} ${this.writeHeaders(headers)} -d "$TASK_DATA" $TASK_URL`
     ].join("\n");
   }
 
@@ -97,11 +107,14 @@ export class PowerShellCodeSnippetGenerator extends CodeSnippetGenerator {
     ].join(this.config.multiline ? "\n" : "");
   }
 
-  writeHttpRequest(method: string, url: string, vars: StringMap) {
+  writeHttpRequest(method: string, url: string, headers: StringMap, vars: StringMap) {
+    Object.assign(headers, { "Content-Type": "application/json" });
+
     return [
       `$TASKS_URL="${url}"`,
+      `$TASK_HEADERS=${this.writeMap(headers)}`,
       `$TASK_DATA=${this.writeMap(vars)}`,
-      `Invoke-RestMethod -Method ${method} -Header @{ "Content-Type" = "application/json" } -Body (ConvertTo-Json $TASK_DATA) $TASKS_URL`
+      `Invoke-RestMethod -Method ${method} -Header $TASK_HEADERS -Body (ConvertTo-Json $TASK_DATA) $TASKS_URL`
     ].join("\n");
   }
 
