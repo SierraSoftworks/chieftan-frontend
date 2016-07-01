@@ -73,3 +73,11 @@ export interface Task {
   executed: Date;
   completed: Date;
 }
+
+export interface TaskSummary {
+  id: string;
+  metadata: {
+    description?: string;
+    url?: string;
+  };
+}
