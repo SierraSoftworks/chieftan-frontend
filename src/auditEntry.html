@@ -3,6 +3,7 @@
   <require from="./components/breadcrumb"></require>
 
   <breadcrumb name="Audit Log" route="audit"></breadcrumb>
+  <breadcrumb name="${entry.type} by ${entry.user.name}" route="auditEntry" route-params.bind="{ id: entry.id }"></breadcrumb>
 
   <div class="row">
     <div class="col s8 push-2s m6 push-m3">

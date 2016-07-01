@@ -1,0 +1,29 @@
+<template>
+  <require from="./components/breadcrumb"></require>
+
+  <breadcrumb name="Users" route="users"></breadcrumb>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red" route-href="route: newUser">
+      <i class="mi">add</i>
+    </a>
+  </div>
+  
+  <div class="row">
+    <div class="col s8 push-s2 m6 push-m3">
+      <div class="card" repeat.for="user of users">
+        <div class="card-content">
+          <h4 class="card-title">${user.name}</h4>
+          <p>
+            <i class="mi">mail_outline</i> <a href="mailto:${user.email}">${user.email}</a>
+            &nbsp;
+            <i class="mi">info_outline</i> <a route-href="route: user; params.bind: { id: user.id }">${user.id}</a>
+          </p>
+        </div>
+        <div class="card-action">
+          <a route-href="route: user; params.bind: { id: user.id }">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

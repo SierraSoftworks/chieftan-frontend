@@ -1,0 +1,26 @@
+<template>
+  <require from="./components/input-field"></require>
+  <require from="./components/breadcrumb"></require>
+
+  <breadcrumb name="Users" route="users"></breadcrumb>
+  <breadcrumb name="New User" route="newUser"></breadcrumb>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <button class="btn-floating btn-large green" click.delegate="create()">
+      <i class="mi">add</i>
+    </button>
+  </div>
+  
+  <div class="row">
+    <div class="col s8 push-s2 m6 push-m3">
+      <div class="card">
+        <div class="card-content">
+          <h4 class="card-title">New User</h4>
+          
+          <input-field label="Name" value.bind="user.name" valid-text="looks good" invalid-text="please enter a valid name" valid.call="validateName($event)"></input-field>
+          <input-field label="Email" type="email" value.bind="user.email" valid-text="looks good" invalid-text="please enter a valid email address" valid.call="validateEmail($event)"></input-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

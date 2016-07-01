@@ -19,6 +19,9 @@ export class App {
       { route: 'action/:action/tasks', name: 'actionTasks', moduleId: './actionTasks', nav: false, title: 'Tasks' },
       { route: 'task/:task', name: 'task', moduleId: './task', nav: false, title: 'Task' },
       { route: 'audit', name: 'audit', moduleId: './audit', nav: true, title: 'Audit Log' },
+      { route: 'users', name: 'users', moduleId: './users', nav: true, title: 'Users' },
+      { route: 'users/new', name: 'newUser', moduleId: './newUser', nav: false, title: 'New User' },
+      { route: 'user/:id', name: 'user', moduleId: './user', nav: false, title: 'User' },
       { route: 'audit/:id', name: 'auditEntry', moduleId: './auditEntry', nav: false, title: 'Audit Log Details' },
       { route: 'config', name: 'config', moduleId: './config', nav: true, title: 'Settings' },
     ]);

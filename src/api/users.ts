@@ -30,6 +30,14 @@ export class UsersAPI extends APIBase {
       .send()
       .then(res => this.handleResponse(res));
   }
+
+  tokens(id: string): Promise<string[]> {
+    return this.http
+      .createRequest(`/user/${id}/tokens`)
+      .asGet()
+      .send()
+      .then(res => this.handleResponse(res));
+  }
 }
 
 
