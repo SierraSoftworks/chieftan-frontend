@@ -1,11 +1,12 @@
 import {autoinject} from "aurelia-framework";
 import {APIBase} from "./api/common";
 import {StatusAPI} from "./api/status";
+import {UsersAPI} from "./api/users";
 import {CodeSnippetConfig, CodeSnippetLanguage, CodeSnippetGenerators} from "./components/code-snippets";
 
 @autoinject
 export class ConfigView {
-  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected snippets: CodeSnippetGenerators) {
+  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected usersAPI: UsersAPI, protected snippets: CodeSnippetGenerators) {
 
   }
 
@@ -22,7 +23,7 @@ export class ConfigView {
   }
 
   validateToken(token: string) {
-    return Promise.reject(new Error("Tokens are not yet supported"));
+    return this.usersAPI.details();
   }
 
   get exampleSnippet(): string {
