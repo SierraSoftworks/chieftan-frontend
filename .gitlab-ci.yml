@@ -52,8 +52,7 @@ gitlab:release:
   script:
     - 'echo "Registering release task"'
     - 'TASK_DATA=$(printf ''{"vars": { "BUILD": "%s", "VERSION": "%s" }, "metadata": { "description": "Version %s of the Chieftan Frontend (Build %s)", "url": "%s/commit/%s/builds" }}'' "$CI_BUILD_ID" "$CI_BUILD_REF" "$CI_BUILD_REF" "$CI_BUILD_ID" "$PROJECT_URL" "$CI_BUILD_REF")'
-    - 'curl -s -X POST -H "Content-Type: application/json" -d "$TASK_DATA" "$CHIEFTAN_SERVER/api/v1/action/576a795f37e18a6843521461/tasks"'
-    - 'curl -s -X POST -H "Content-Type: application/json" -d "$TASK_DATA" "$CHIEFTAN_SERVER/api/v1/action/576a797837e18a6843521462/tasks"'
+    - 'curl -s -X POST -H "Authorization: Token 48a55d0d5c5b92db0c2610168ab6ec85" -H "Content-Type: application/json" -d "$TASK_DATA" "$CHIEFTAN_SERVER/api/v1/action/576a795f37e18a6843521461/tasks"'
   artifacts:
     name: $CI_BUILD_REF
     paths:
