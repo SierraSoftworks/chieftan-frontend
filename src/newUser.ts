@@ -19,7 +19,7 @@ export class NewUserView {
   create() {
     this.usersAPI.create(this.user).then(user => {
       this.router.navigateToRoute("user", { id: user.id });
-    }, error => this.err = err);
+    }, err => this.error = err);
   }
 
   validateName(name: string) {
