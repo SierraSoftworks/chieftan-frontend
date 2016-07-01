@@ -2,13 +2,14 @@
   <require from="./components/breadcrumb"></require>
   <require from="./components/terminal"></require>
   <require from="./components/variable-editor"></require>
+  <require from="./components/select-box"></require>
 
   <breadcrumb name.bind="task.project.name" route="project" route-params.bind="{ project: task.project.id }"></breadcrumb>
   <breadcrumb name.bind="task.action.name" route="action" route-params.bind="{ action: task.action.id }"></breadcrumb>
   <breadcrumb name="Task" route="task" route-params.bind="{ task: task.id }"></breadcrumb>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <button class="btn-floating btn-large green white-text" click.delegate="runTask()">
+    <button class="btn-floating btn-large green white-text" click.delegate="runTask(configuration &amp;&amp; configuration.name)">
       <i class="mi">play_arrow</i>
     </button>
   </div>
@@ -32,6 +33,23 @@
     <div class="col s12 m6">
       <div class="card" if.bind="task.state != 'Executing'">
         <div class="card-content">
+          <h2 class="card-title">
+            Configuration
+          </h2>
+
+          <select-box if.bind="action.configurations" options.bind="action.configurations" value.bind="configuration">
+            <template replace-part="current">
+              ${value.name}
+            </template>
+            <template replace-part="item">
+              ${item.name}
+            </template>
+          </select-box>
+
+          <p if.bind="!action.configurations">
+            This task doesn't have any configurations specified for it.
+          </p>
+
           <h2 class="card-title">
             Variables
           </h2>

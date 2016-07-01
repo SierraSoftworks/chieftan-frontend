@@ -41,6 +41,7 @@ export interface NewAction {
   vars: {
     [name: string]: string;
   };
+  configurations: ActionConfiguration[];
   http?: HttpRequest;
 }
 
@@ -52,7 +53,15 @@ export interface Action {
   vars: {
     [name: string]: string;
   };
+  configurations: ActionConfiguration[];
   http?: HttpRequest;
+}
+
+export interface ActionConfiguration {
+  name: string;
+  vars: {
+    [name: string]: string;
+  };
 }
 
 export interface ActionSummary {

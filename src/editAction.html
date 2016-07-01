@@ -8,8 +8,8 @@
   <breadcrumb name.bind="action.name" route="action" route-params.bind="{ action: action.id }"></breadcrumb>
   <breadcrumb name="Edit" route="editAction" route-params.bind="{ action: action.id }"></breadcrumb>
 
-  <div class="row">
-    <div class="col s12 m6 l4">
+  <div class="row cards-box">
+    <div>
       <div class="card">
         <div class="card-content">
           <h1 class="card-title">Action Details</h1>
@@ -29,10 +29,16 @@
       </div>
     </div>
 
-    <div class="col s12 m6 l4">
+    <div>
       <div class="card">
         <div class="card-content">
-          <h2 class="card-title">Variables</h2>
+          <h2 class="card-title">
+            <button class="btn-floating green right" title="Add Configuration" click.delegate="addConfiguration()">
+              <i class="material-icons">add</i>
+            </button>
+
+            Variables
+          </h2>
           <p>Make changes to the default variable values for this action's tasks.</p>
 
           <variable-editor value.bind="details.vars"></variable-editor>
@@ -40,7 +46,7 @@
       </div>
     </div>
 
-    <div class="col s12 m6 l4">
+    <div>
       <div class="card">
         <div class="card-content">
           <h2 class="card-title">
@@ -76,5 +82,25 @@
         </div>
       </div>
     </div>
+
+    <div repeat.for="configuration of details.configurations">
+      <div class="card">
+        <div class="card-content">
+          <h2 class="card-title">
+            <button class="btn-floating red right" title="Remove Configuration" click.delegate="removeConfiguration(configuration)">
+              <i class="material-icons">close</i>
+            </button>
+
+            Configuration
+          </h2>
+          <p>A custom configuration which can be selected when running the task.</p>
+
+          <input-field label="Name" value.bind="configuration.name" valid.call="checkConfigurationName($event)" valid-text="looks good" invalid-text="you've use the same name elsewhere"></input-field>
+
+          <variable-editor value.bind="configuration.vars"></variable-editor>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>

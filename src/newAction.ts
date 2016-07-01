@@ -1,7 +1,7 @@
 import {autoinject, computedFrom} from "aurelia-framework";
 import {Router} from "aurelia-router";
 import {ProjectsAPI, Project} from "./api/projects";
-import {ActionsAPI, NewAction, HttpRequest} from "./api/actions";
+import {ActionsAPI, NewAction, HttpRequest, ActionConfiguration} from "./api/actions";
 
 @autoinject
 export class NewProjectActionView {
@@ -40,6 +40,7 @@ export class NewProjectActionView {
     const features: NewAction = {
       name: this.details.name,
       description: this.details.description,
+      configurations: this.details.configurations,
       vars: this.details.vars
     };
 
@@ -103,6 +104,10 @@ export class NewProjectActionView {
       name: null,
       description: null,
       vars: {},
+      configurations: [{
+        name: "Default",
+        vars: {}
+      }],
       http: {
         method: "GET",
         url: "",
@@ -113,5 +118,26 @@ export class NewProjectActionView {
     this.features = {
       http: true
     };
+  }
+
+  addConfiguration() {
+    this.details.configurations.push({
+      name: "New Configuration",
+      vars: {}
+    });
+  }
+
+  removeConfiguration(config: ActionConfiguration) {
+    const i = this.details.configurations.indexOf(config); 
+    if (~i) this.details.configurations.splice(i, 1);
+  }
+
+  checkConfigurationName(name: string) {
+    const foundNames = [name];
+    return this.details.configurations.every(config => {
+      if (~foundNames.indexOf(config.name)) return false;
+      foundNames.push(config.name);
+      return true;
+    });
   }
 }

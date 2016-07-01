@@ -1,0 +1,19 @@
+.cards-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > div {
+    width: 100%;
+    border: 0.5rem solid transparent;
+    box-sizing: border-box;
+
+    @media(min-width: 800px) {
+      width: 50%;
+    }
+
+    @media(min-width: 1200px) {
+      width: 33%;
+    }
+  }
+}

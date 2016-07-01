@@ -1,7 +1,7 @@
 import {autoinject, computedFrom} from "aurelia-framework";
 import {Router} from "aurelia-router";
 import {ProjectsAPI, ProjectSummary} from "./api/projects";
-import {ActionsAPI, Action, NewAction, HttpRequest} from "./api/actions";
+import {ActionsAPI, Action, NewAction, HttpRequest, ActionConfiguration} from "./api/actions";
 
 @autoinject
 export class EditProjectActionView {
@@ -29,7 +29,8 @@ export class EditProjectActionView {
           name: action.name,
           description: action.description,
           vars: action.vars,
-          http: action.http
+          http: action.http,
+          configurations: action.configurations || []
         };
         this.features = this.getFeatures();
       })
@@ -40,7 +41,8 @@ export class EditProjectActionView {
     const features: NewAction = {
       name: this.details.name,
       description: this.details.description,
-      vars: this.details.vars
+      vars: this.details.vars,
+      configurations: this.details.configurations || []
     };
 
     for (var k in this.features) {
@@ -97,5 +99,26 @@ export class EditProjectActionView {
     }
 
     return disabledFeatures;
+  }
+
+  addConfiguration() {
+    this.details.configurations.push({
+      name: "New Configuration",
+      vars: {}
+    });
+  }
+
+  removeConfiguration(config: ActionConfiguration) {
+    const i = this.details.configurations.indexOf(config); 
+    if (~i) this.details.configurations.splice(i, 1);
+  }
+
+  checkConfigurationName(name: string) {
+    const foundNames = [name];
+    return this.details.configurations.every(config => {
+      if (~foundNames.indexOf(config.name)) return false;
+      foundNames.push(config.name);
+      return true;
+    });
   }
 }

@@ -1,6 +1,6 @@
 import {autoinject} from "aurelia-framework";
 import {ProjectsAPI, Project} from "./api/projects";
-import {ActionsAPI, Action} from "./api/actions";
+import {ActionsAPI, Action, ActionConfiguration} from "./api/actions";
 import {TasksAPI, Task} from "./api/tasks";
 
 @autoinject
@@ -12,6 +12,8 @@ export class ProjectView {
   task: Task = null;
   action: Action = null;
   private refreshIntervalHandle: number = null;
+
+  configuration: ActionConfiguration = null;
 
   run: {
     vars: { [variable: string]: string };
@@ -45,8 +47,8 @@ export class ProjectView {
     });
   }
 
-  runTask() {
-    this.tasksAPI.run(this.task.id, this.run.vars).then(task => {
+  runTask(configuration?: string) {
+    this.tasksAPI.run(this.task.id, configuration, this.run.vars).then(task => {
       this.task = task;
       this.taskChanged();
     });
