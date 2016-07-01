@@ -114,7 +114,7 @@ export class EditProjectActionView {
   }
 
   checkConfigurationName(name: string) {
-    const foundNames = [name];
+    const foundNames = [];
     return this.details.configurations.every(config => {
       if (~foundNames.indexOf(config.name)) return false;
       foundNames.push(config.name);
