@@ -1,0 +1,27 @@
+<template>
+  <div class="row">
+    <div class="col s8 push-2s m6 push-m3">
+
+
+      <div class="card" repeat.for="entry of log">
+        <div class="card-content">
+          <h4>
+            <strong>${entry.type}</strong>
+            <span if.bind="entry.user">by ${entry.user.name}</span>
+          </h4>
+          <p>
+            <i class="mi">access_time</i> ${entry.timestamp | relativeTime}
+            &nbsp;
+            <i class="mi">info_outline</i> <a route-href="route: auditEntry; params.bind: { id: entry.id }">${entry.id}</a>
+            &nbsp;
+            <i class="mi">mail_outline</i> <a href="mailto:${entry.user.email}">${entry.user.email}</a>
+          </p>
+        </div>
+        <div class="card-action">
+          <a route-href="route: auditEntry; params.bind: { id: entry.id }">Details</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>

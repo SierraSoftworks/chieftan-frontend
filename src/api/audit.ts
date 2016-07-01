@@ -13,6 +13,14 @@ export class AuditAPI extends APIBase {
       .send()
       .then(res => this.handleResponse(res));
   }
+
+  details(id: string): Promise<AuditLogEntry> {
+    return this.http
+      .createRequest(`/audit/${id}`)
+      .asGet()
+      .send()
+      .then(res => this.handleResponse(res));
+  }
 }
 
 
