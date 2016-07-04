@@ -1,29 +1,23 @@
 <template>
-  <div class="task-left">
-    <div class="task-status">
-      <i class="mi circle blue lighten-4" if.bind="task.state == 'NotExecuted'">add_circle_outline</i>
-      <i class="mi circle light-blue accent-2 white-text" if.bind="task.state == 'Executing'">loop</i>
-      <i class="mi circle green accent-4 white-text" if.bind="task.state == 'Passed'">done</i>
-      <i class="mi circle red darken-4 white-text" if.bind="task.state == 'Failed'">new_releases</i>
-    </div>
-    <div class="task-title">
-      <h5>
-        <a route-href="route: task; params.bind: { task: task.id }">${task.action.name}</a>
-      </h5>
+  <div class="card ${task | taskCardStyle}">
+    <div class="card-content">
+      <div class="card-title">${task.action.name}</div>
       <p>
         ${task.metadata.description}
-        <br>
-        <a href.bind="task.metadata.url" target="_blank">More info</a>
-        &nbsp;
+      </p>
+      <p>
         <i class="mi">history</i> Created ${task.created | relativeTime}
       </p>
     </div>
-  </div>
-  <div class="task-right">
-    <div class="task-controls">
-      <a href="#" click.delegate="runTask(task)" if.bind="task.state == 'NotExecuted'">
-        <i class="material-icons circle green white-text">play_arrow</i>
-      </a>
+    <div class="card-action">
+      <a route-href="route: task; params.bind: { task: task.id }">View</a>
+      <a href.bind="task.metadata.url" target="_blank">Info</a>
+      <a class="clickable" click.delegate="runTask(task)">Run Default</a>
     </div>
   </div>
+<!--
+      <i class="mi circle blue lighten-4" if.bind="task.state == 'NotExecuted'">add_circle_outline</i>
+      <i class="mi circle light-blue accent-2 white-text" if.bind="task.state == 'Executing'">loop</i>
+      <i class="mi circle green accent-4 white-text" if.bind="task.state == 'Passed'">done</i>
+      <i class="mi circle red darken-4 white-text" if.bind="task.state == 'Failed'">new_releases</i>-->
 </template>

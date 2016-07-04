@@ -44,3 +44,18 @@ export class TaskEntry {
   }
 
 }
+
+export class TaskCardStyleValueConverter {
+  toView(task: Task) {
+    switch(task.state) {
+      case "NotExecuted":
+        return "";
+      case "Executing":
+        return "blue accent-2 white-text";
+      case "Passed":
+        return "green darken-1 white-text";
+      case "Failed":
+        return "red darken-4 white-text";
+    }
+  }
+}
