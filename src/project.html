@@ -26,8 +26,8 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col s12" repeat.for="action of actions">
+      <div class="row cards-box cards-box-2l cards-box-1m">
+        <div repeat.for="action of actions">
           <div class="card">
             <div class="card-content">
               <h3 class="card-title center-align">${action.name}</h3>
@@ -51,9 +51,9 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col s12">
-          <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
+      <div class="row cards-box cards-box-2l cards-box-1m">
+        <div repeat.for="task of tasks">
+          <task-entry task.bind="task"></task-entry>
         </div>
       </div>
     </div>

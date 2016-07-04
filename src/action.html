@@ -57,7 +57,13 @@
         </div>
       </div>
 
-      <task-entry repeat.for="task of tasks" task.bind="task"></task-entry>
+      <div class="row cards-box">
+        <div repeat.for="task of tasks">
+          <task-entry task.bind="task"></task-entry>
+        </div>
+      </div>
+
+      
     </div>
 
   </div>
