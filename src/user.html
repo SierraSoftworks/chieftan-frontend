@@ -44,7 +44,8 @@
           <ul>
             <li repeat.for="token of tokens">
               <i class="material-icons">vpn_key</i>
-              ${token}
+              
+              <pre><code>${token}</code></pre>
 
               <a class="red-text" href="#" click.delegate="revokeToken(token)">
                 <i class="material-icons">close</i>
