@@ -3,7 +3,7 @@ import * as hljs from "highlightjs/highlight.pack";
 
 export class Terminal {
   @bindable name: string;
-  @bindable style: string = "bash";
+  @bindable design: string = "bash";
   @bindable value: string = "";
   @bindable language: string;
   @bindable rawValue: string = "";
