@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: stretch;
 
   > div {
     width: 100%;
@@ -14,6 +16,13 @@
 
     @media(min-width: 1200px) {
       width: 33%;
+    }
+
+    .card {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 }
