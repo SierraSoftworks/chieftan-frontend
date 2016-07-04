@@ -6,19 +6,30 @@
   <breadcrumb name="${entry.type} by ${entry.user.name}" route="auditEntry" route-params.bind="{ id: entry.id }"></breadcrumb>
 
   <div class="row">
-    <div class="col s12 m8 push-m2 l6 push-l3">
+    <div class="col s12 m10 push-m1 l8 push-l2">
       <div class="card">
         <div class="card-content">
           <h4>
+            <img class="circle" src="https://secure.gravatar.com/avatar/${entry.user.email}?s=20&d=mm">
             <strong>${entry.type}</strong>
-            <span if.bind="entry.user">by ${entry.user.name}</span>
+            <small if.bind="entry.user">
+              <br>
+              by ${entry.user.name}
+            </small>
           </h4>
           <p>
-            <i class="mi">access_time</i> ${entry.timestamp | relativeTime}
-            &nbsp;
-            <i class="mi">info_outline</i> <a route-href="route: auditEntry; params.bind: { id: entry.id }">${entry.id}</a>
-            &nbsp;
-            <i class="mi">mail_outline</i> <a href="mailto:${entry.user.email}">${entry.user.email}</a>
+            <span>
+              <i class="mi">access_time</i> ${entry.timestamp | relativeTime}
+            </span>
+            <span>
+              <i class="mi">mail_outline</i> <a href="mailto:${entry.user.email}">${entry.user.email}</a>
+            </span>
+            <span if.bind="entry.token">
+              <i class="mi">vpn_key</i> <a route-href="route: user; params.bind: { id: entry.user.id }">${entry.token}</a>
+            </span>
+            <span>
+              <i class="mi">info_outline</i> <a route-href="route: auditEntry; params.bind: { id: entry.id }">${entry.id}</a>
+            </span>
           </p>
 
         </div>
