@@ -38,6 +38,23 @@ export class UsersAPI extends APIBase {
       .send()
       .then(res => this.handleResponse(res));
   }
+
+  addToken(id: string, token: string): Promise<string[]> {
+    return this.http
+      .createRequest(`/user/${id}/tokens`)
+      .asPost()
+      .withContent({ token })
+      .send()
+      .then(res => this.handleResponse(res));
+  }
+
+  revokeToken(id: string, token: string): Promise<string[]> {
+    return this.http
+      .createRequest(`/user/${id}/token/${token}`)
+      .asDelete()
+      .send()
+      .then(res => this.handleResponse(res));
+  }
 }
 
 

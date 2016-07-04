@@ -10,10 +10,20 @@
   </div>
   
   <div class="row">
+    <div class="col s12">
+      <h2 class="center">Users</h2>
+      <p class="center">Manage the users which have access to the Chieftan API, as well as their permissions.</p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col s12 m8 push-m2 l6 push-l3">
       <div class="card" repeat.for="user of users">
         <div class="card-content">
-          <h4 class="card-title">${user.name}</h4>
+          <h4 class="card-title">
+            <img class="circle" src="https://secure.gravatar.com/avatar/${entry.user.email}?s=20&d=mm">
+            ${user.name}
+          </h4>
           <p>
             <i class="mi">mail_outline</i> <a href="mailto:${user.email}">${user.email}</a>
             &nbsp;
