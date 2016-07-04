@@ -87,7 +87,7 @@ export class NewProjectActionView {
     let disabledFeatures: {
       http: boolean;
     } = {
-      http: true
+      http: false
     };
 
     let details = this.details;

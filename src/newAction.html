@@ -7,6 +7,16 @@
   <breadcrumb name.bind="project.name" route="project" route-params.bind="{ project: project.id }"></breadcrumb>
   <breadcrumb name="New Action" route="newAction" route-params.bind="{ project: project.id }"></breadcrumb>
 
+  <div class="fixed-action-btn horizontal active" style="bottom: 45px; right: 24px;">
+    <button class="btn-floating btn-large green" click.delegate="create()">
+      <i class="mi">add</i>
+    </button>
+    <ul>
+      <li><button class="btn-floating blue accent-2" click.delegate="addConfiguration()"><i class="material-icons">extension</i></button></li>
+      <li if.bind="!features.http"><button class="btn-floating grey-blue accent-2" click.delegate="enableFeature('http')"><i class="material-icons">http</i></button></li>
+    </ul>
+  </div>
+
   <div class="cards-box">
     <div>
       <div class="card">
@@ -20,10 +30,6 @@
 
           <input-field label="Description" value.bind="details.description" multiline="true" require="true" valid-text="looks good" invalid-text="enter a valid description" valid.bind="descriptionValid"></input-field>
 
-        </div>
-        <div class="card-action">
-          <a href="#" click.delegate="create()">Create Action</a>
-          <a route-href="route: project; params.bind: { project: project.id }">Cancel</a>
         </div>
       </div>
     </div>
@@ -39,14 +45,39 @@
       </div>
     </div>
 
-    <div>
+    <div repeat.for="configuration of details.configurations">
       <div class="card">
         <div class="card-content">
           <h2 class="card-title">
-            <switch class="pull-right" value.bind="features.http"></switch>
-            
+            Configuration
+          </h2>
+          <p>A custom configuration which can be selected when running the task.</p>
+
+          <input-field label="Name" value.bind="configuration.name" valid.call="checkConfigurationName($event)" valid-text="looks good" invalid-text="you've use the same name elsewhere"></input-field>
+
+          <variable-editor value.bind="configuration.vars"></variable-editor>
+        </div>
+        <div class="card-action">
+          <a href="#" click.delegate="removeConfiguration(configuration)">Remove</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 center">
+      <h2>Features</h2>
+    </div>
+  </div>
+
+  <div class="row cards-box">
+    <div if.bind="features.http">
+      <div class="card">
+        <div class="card-content">
+          <h2 class="card-title">
             HTTP Request
           </h2>
+
           <p>Trigger an HTTP request when a task for this action is executed.</p>
 
           <div if.bind="!disabledFeatures.http">
@@ -73,24 +104,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div repeat.for="configuration of details.configurations">
-      <div class="card">
-        <div class="card-content">
-          <h2 class="card-title">
-            <button class="btn-floating red right" title="Remove Configuration" click.delegate="removeConfiguration(configuration)">
-              <i class="material-icons">close</i>
-            </button>
-
-            Configuration
-          </h2>
-          <p>A custom configuration which can be selected when running the task.</p>
-
-          <input-field label="Name" value.bind="configuration.name" valid.call="checkConfigurationName($event)" valid-text="looks good" invalid-text="you've use the same name elsewhere"></input-field>
-
-          <variable-editor value.bind="configuration.vars"></variable-editor>
+        <div class="card-action">
+          <a href="#" click.delegate="disableFeature('http')">Remove</a>
         </div>
       </div>
     </div>

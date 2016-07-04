@@ -4,6 +4,11 @@
 
   <breadcrumb name="New Project" route="newProject"></breadcrumb>
 
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <button class="btn-floating btn-large green" click.delegate="create()">
+      <i class="mi">add</i>
+    </button>
+  </div>
 
   <div class="valign-wrapper">
     <div class="valign margin-center">
@@ -20,10 +25,6 @@
           <input-field label="Project Website" value.bind="details.url" require="true" type="url" valid-text="looks good" invalid-text="enter a valid project website URL" valid.bind="urlValid"></input-field>
 
           <input-field label="Description" value.bind="details.description" multiline="true" require="true" valid-text="looks good" invalid-text="enter a valid description" valid.bind="descriptionValid"></input-field>
-
-        </div>
-        <div class="card-action">
-          <a href="#" click.delegate="create()">Create Project</a>
         </div>
       </div>
     </div>
