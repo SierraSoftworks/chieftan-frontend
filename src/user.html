@@ -5,9 +5,9 @@
   <breadcrumb name.bind="user.name" route="user" route-params.bind="{ id: user.id }"></breadcrumb>
 
   <div class="row">
-    <div class="col s12">
+    <div class="col s12 center margin-top-2rem">
       <img src="https://secure.gravatar.com/avatar/${entry.user.email}?s=200&d=mm" class="center circle">
-      <h2 class="center">${user.name}</h2>
+      <h2>${user.name}</h2>
       <p>
         <i class="mi">mail_outline</i> <a href="mailto:${user.email}">${user.email}</a>
         &nbsp;
@@ -42,7 +42,7 @@
             <li repeat.for="token of tokens">
               <i class="material-icons">vpn_key</i>
 
-              <pre><code>${token}</code></pre>
+              <code>${token}</code>
 
               <a class="red-text" href="#" click.delegate="revokeToken(token)">
                 <i class="material-icons">close</i>
