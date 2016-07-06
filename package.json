@@ -10,7 +10,8 @@
     "server:dev": "webpack-dev-server --config build/webpack.config.js --watch --hot",
     "server:prod": "http-server dist --cors",
     "watch": "npm run server:dev",
-    "start": "npm run server:dev"
+    "start": "npm run server:dev",
+    "typings:prune": "typings prune"
   },
   "repository": {
     "type": "git",
