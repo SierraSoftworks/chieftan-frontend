@@ -5,7 +5,23 @@
 
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import 'materialize-css/dist/css/materialize.css';
-import './styles/styles.less';
+import './styles/initial.less';
+
+import * as raven from 'raven-js';
+raven.config(SENTRY_DSN, {
+  release: VERSION
+}).install();
+
+if (window.addEventListener) {
+  window.addEventListener("unhandledrejection", (err) => {
+    raven.captureException(err);
+  });
+
+  window.addEventListener("error", (err) => {
+    raven.captureException(err);
+    raven.showReportDialog();
+  });
+}
 
 // comment out if you don't want a Promise polyfill (remove also from config/webpack.common.js)
 import * as Bluebird from 'bluebird';

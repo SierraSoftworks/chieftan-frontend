@@ -5,7 +5,7 @@ import {ActionSummary} from "./actions";
 
 @autoinject
 export class StatusAPI extends APIBase {
-  test(): Promise<undefined> {
+  test(): Promise<any> {
     return this.http
       .createRequest("/status")
       .asGet()

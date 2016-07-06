@@ -22,7 +22,7 @@ export class SelectBox<T> {
   @computedFrom("options", "filter")
   get availableOptions(): T[] {
     if (!this.filter) return this.options;
-    return this.options.filter(item => this.match && this.match(item, this.filter) || ~JSON.stringify(item).indexOf(this.filter));
+    return this.options.filter(item => this.match && this.match(item, this.filter) || !!~JSON.stringify(item).indexOf(this.filter));
   }
 
   open() {

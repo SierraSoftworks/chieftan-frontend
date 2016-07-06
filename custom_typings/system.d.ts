@@ -1,5 +1,4 @@
 declare module 'system' {
-  import offline = require('offline-plugin/runtime');
   import * as Aurelia from 'aurelia-framework';
 
   /*
@@ -8,10 +7,5 @@ declare module 'system' {
   interface System {
     import(name: string): Promise<any>;
     import(name: 'aurelia-framework'): Promise<typeof Aurelia>;
-    import(name: 'offline-plugin/runtime'): Promise<typeof offline>;
-  }
-
-  global {
-    var System: System;
   }
 }

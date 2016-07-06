@@ -1,3 +1,5 @@
+import "../styles/styles.less";
+
 import {Aurelia} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
 

@@ -1,10 +1,19 @@
 ﻿import {Aurelia} from 'aurelia-framework';
 import {bootstrap} from 'aurelia-bootstrapper-webpack';
+import * as Log from "aurelia-logging";
+import {RavenLogAppender} from "./loggers/raven";
 
-bootstrap(async (aurelia: Aurelia) => {
+declare const document;
+declare const DEVELOPMENT: boolean;
+declare const SENTRY_DSN: string|boolean;
+
+bootstrap((aurelia: Aurelia) => {
+  if (SENTRY_DSN) {
+    Log.addAppender(aurelia.container.get(RavenLogAppender));
+  }
+
   aurelia.use
     .standardConfiguration()
-    .developmentLogging()
     .globalResources([
       "converters/boolean",
       "converters/json",
@@ -14,16 +23,16 @@ bootstrap(async (aurelia: Aurelia) => {
       "converters/relativeTime",
     ]);
 
+  Log.setLevel(Log.logLevel.info);
+
+  if (DEVELOPMENT) {
+    Log.setLevel(Log.logLevel.debug);
+    aurelia.use
+      .developmentLogging();
+  }
+
   const rootElement = document.body;
   rootElement.setAttribute('aurelia-app', '');
 
-  await aurelia.start();
-  aurelia.setRoot('app', rootElement);
-  
-  // if you would like your website to work offline (Service Worker), 
-  // enable the OfflinePlugin in config/webpack.common.js and uncomment the following code:
-  /*
-  const offline = await System.import('offline-plugin/runtime');
-  offline.install();
-  */
+  return aurelia.start().then(() => aurelia.setRoot('app', rootElement));
 });

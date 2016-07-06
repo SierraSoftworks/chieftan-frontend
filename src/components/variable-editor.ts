@@ -51,7 +51,7 @@ export class VariableEditor {
   }
 
   updateValueFromRows(rows: Row[]) {
-    const newValue = {};
+    const newValue: { [name: string]: string; } = {};
     rows.forEach(row => row.key && (newValue[row.key] = row.value));
 
     return this.value = newValue;
