@@ -2,6 +2,7 @@ const base = require("./webpack.config.js");
 const helpers = require("./webpack-helpers");
 
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const CompressionPlugin = require('compression-webpack-plugin');
 
