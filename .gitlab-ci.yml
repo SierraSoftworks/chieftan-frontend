@@ -31,7 +31,7 @@ npm:build:
     - npm:install
   script:
     - VERSION="$CI_BUILD_REF_NAME-$CI_BUILD_REF"
-    - npm run build:prod
+    - npm run build
   artifacts:
     name: $CI_BUILD_REF-app
     paths:
