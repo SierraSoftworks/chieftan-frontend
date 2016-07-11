@@ -1,10 +1,21 @@
 import "../styles/styles.less";
 
-import {Aurelia} from 'aurelia-framework';
+import {Aurelia, autoinject} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
+import {UserManager} from "./managers/user";
+import * as Raven from "raven-js";
 
+@autoinject
 export class App {
+  constructor(private userManager: UserManager) {
+    
+  }
+
   router: Router;
+
+  activate() {
+    return this.updateUser();
+  }
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Chieftan';
@@ -29,5 +40,15 @@ export class App {
     ]);
 
     this.router = router;
+  }
+
+  private updateUser() {
+    return this.userManager.updateUser().catch(err => {
+      Raven.captureException(err, {
+        level: "warning"
+      });
+
+      this.router.navigateToRoute("config");
+    });
   }
 }

@@ -2,11 +2,12 @@ import {autoinject} from "aurelia-framework";
 import {APIBase} from "./api/common";
 import {StatusAPI} from "./api/status";
 import {UsersAPI} from "./api/users";
+import {UserManager} from "./managers/user";
 import {CodeSnippetConfig, CodeSnippetLanguage, CodeSnippetGenerators} from "./components/code-snippets";
 
 @autoinject
 export class ConfigView {
-  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected usersAPI: UsersAPI, protected snippets: CodeSnippetGenerators) {
+  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected usersAPI: UsersAPI, protected snippets: CodeSnippetGenerators, private userManager: UserManager) {
 
   }
 
@@ -23,7 +24,8 @@ export class ConfigView {
   }
 
   validateToken(token: string) {
-    return this.usersAPI.details();
+    this.api.token = token;
+    return this.userManager.updateUser();
   }
 
   get exampleSnippet(): string {

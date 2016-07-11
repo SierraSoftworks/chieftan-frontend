@@ -19,6 +19,12 @@
           <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}">
             <a href.bind="route.href">${route.title}</a>
           </li>
+          <li if.bind="userManager.user">
+            <a route-href="route: user; params.bind: { id: userManager.user.id }">
+              <i class="mi">person</i>
+              ${userManager.user.name}
+            </a>
+          </li>
         </ul>
 
         <ul class="side-nav ${sideNav ? 'active' : ''}">
@@ -32,6 +38,12 @@
           </li>
           <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}">
             <a href.bind="route.href">${route.title}</a>
+          </li>
+          <li if.bind="userManager.user">
+            <a route-href="route: user; params.bind: { id: userManager.user.id }">
+              <i class="mi">person</i>
+              ${userManager.user.name}
+            </a>
           </li>
         </ul>
 
