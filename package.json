@@ -5,7 +5,7 @@
   "main": "dist/electron.js",
   "productName": "Chieftan",
   "scripts": {
-    "prebuild": "rm -R dist || true",
+    "prebuild": "rimraf dist",
     "build": "webpack --config build/webpack.production.js",
     "server:dev": "webpack-dev-server --config build/webpack.config.js --watch --hot",
     "server:prod": "http-server dist --cors",
@@ -22,9 +22,7 @@
   "homepage": "https://git.emss.co.za/chieftan/frontend",
   "aurelia": {
     "build": {
-      "resources": [
-        
-      ],
+      "resources": [],
       "moduleRootOverride": {
         "aurelia-templating-resources": "dist/es2015",
         "aurelia-templating-router": "dist/es2015"
@@ -71,6 +69,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.3",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.2",
