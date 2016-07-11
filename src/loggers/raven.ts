@@ -1,5 +1,5 @@
 import * as Log from "aurelia-logging";
-import {default as Raven, RavenOptions} from "raven-js";
+import * as Raven from "raven-js";
 
 export class RavenLogAppender implements Log.Appender {
   constructor() {
@@ -73,7 +73,12 @@ export class RavenLogAppender implements Log.Appender {
     });
   }
 
-  log(message: string|Error, context: RavenOptions) {
+  log(message: string|Error, context: {
+    level: string;
+    logger?: string;
+    extra?: {};
+    tags?: { [id: string]: string; };
+  }) {
     let log = (message: string, ...data: any[]) => {};
 
     let cssDefault = "color: black; font-weight: normal;";
