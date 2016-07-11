@@ -24,13 +24,13 @@ module.exports = Object.assign({}, base, {
     new WebpackMd5Hash(),
     new DedupePlugin(),
 
-    ...base.plugins,
-
     new DefinePlugin({
-      VERSION: `"${process.env.VERSION}""`,
+      VERSION: `"${process.env.VERSION}"`,
       DEVELOPMENT: false,
       SENTRY_DSN: process.env.SENTRY_DSN && `"${process.env.SENTRY_DSN}"` || false
     }),
+
+    ...base.plugins,
 
     new CompressionPlugin({
       regExp: /\.css$|\.html$|\.js$|\.map$/,
