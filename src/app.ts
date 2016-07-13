@@ -7,13 +7,11 @@ import * as Raven from "raven-js";
 
 @autoinject
 export class App {
-  constructor(private userManager: UserManager) {
+  constructor(private userManager: UserManager, private router: Router) {
     
   }
 
-  router: Router;
-
-  activate() {
+  bind() {
     return this.updateUser();
   }
 
@@ -38,8 +36,6 @@ export class App {
       { route: 'audit/:id', name: 'auditEntry', moduleId: './auditEntry', nav: false, title: 'Audit Log Details' },
       { route: 'config', name: 'config', moduleId: './config', nav: true, title: 'Settings' },
     ]);
-
-    this.router = router;
   }
 
   private updateUser() {
