@@ -8,6 +8,7 @@ stages:
 variables:
   CHIEFTAN_SERVER: http://chieftan.farmtracksa.com
   PROJECT_URL: https://git.emss.co.za/chieftan/frontend
+  CONTAINER_IMAGE: docker.emss.co.za/chieftan/frontend
 
 npm:install:
   stage: dependencies
@@ -37,14 +38,6 @@ npm:build:
       - dist/
       - package.json
 
-# npm:test:
-#   stage: test
-#   dependencies:
-#     - npm:install
-#     - npm:build
-#   script:
-#     - npm test
-
 gitlab:release:
   stage: release
   dependencies:
@@ -58,3 +51,25 @@ gitlab:release:
     paths:
       - dist/
       - package.json
+
+# docker:release:
+#   image: docker:latest
+#   stage: release
+#   dependencies:
+#     - npm:build
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.emss.co.za
+#     - docker build -t $CONTAINER_IMAGE:$CI_BUILD_REF_NAME --build-arg VERSION=$CI_BUILD_REF .
+#     - docker push $CONTAINER_IMAGE:$CI_BUILD_REF_NAME
+
+# docker:release:latest:
+#   image: docker:latest
+#   stage: release
+#   dependencies:
+#     - npm:build
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.emss.co.za
+#     - docker build -t $CONTAINER_IMAGE:latest --build-arg VERSION=$CI_BUILD_REF .
+#     - docker push $CONTAINER_IMAGE:latest
+#   only:
+#     - master
