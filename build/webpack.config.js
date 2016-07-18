@@ -115,7 +115,7 @@ module.exports = {
 
       {
         include: [helpers.root("styles/initial.less")],
-        loader: ExtractTextPlugin.extract("style", "css!less")
+        loader: ExtractTextPlugin.extract({ notExtractLoader: "style", loader: "css!less" })
       },
 
       {
@@ -175,11 +175,12 @@ module.exports = {
     ]),
 
     new webpack.optimize.CommonsChunkPlugin({
-      name: [
+      names: [
         'aurelia-bootstrap',
         'aurelia',
         'app'
-      ].reverse()
+      ].reverse(),
+      children: true
     })
   ],
 
