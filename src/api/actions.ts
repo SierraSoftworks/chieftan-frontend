@@ -45,7 +45,7 @@ export interface NewAction {
   http?: HttpRequest;
 }
 
-export interface Action {
+export class Action {
   id: string;
   name: string;
   description: string;
