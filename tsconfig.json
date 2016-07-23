@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
+    "allowJs": false,
     "declaration": false,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "release",
+    "webpack.config.js"
   ]
 }

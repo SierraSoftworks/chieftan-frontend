@@ -11,7 +11,7 @@ export class AuditAPI extends APIBase {
       .createRequest("/audit")
       .asGet()
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<AuditLogEntry[]>(res));
   }
 
   details(id: string): Promise<AuditLogEntry> {
@@ -19,7 +19,7 @@ export class AuditAPI extends APIBase {
       .createRequest(`/audit/${id}`)
       .asGet()
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<AuditLogEntry>(res));
   }
 }
 

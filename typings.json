@@ -2,7 +2,6 @@
   "name": "aurelia-skeleton-navigation-typescript-webpack",
   "version": false,
   "dependencies": {
-    
   },
   "devDependencies": {
     "webpack": "registry:npm/webpack#1.12.9+20160418172948"
@@ -13,7 +12,5 @@
     "moment-node": "registry:dt/moment-node#2.11.1+20160511043338"
   },
   "globalDevDependencies": {
-    "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
-    "selenium-webdriver": "github:DefinitelyTyped/DefinitelyTyped/selenium-webdriver/selenium-webdriver.d.ts#24e12a7af994afa2226af70fbfae0adc78736a9e"
   }
 }

@@ -1,13 +1,13 @@
-﻿import {Aurelia} from 'aurelia-framework';
-import {bootstrap} from 'aurelia-bootstrapper-webpack';
+﻿/* Webpack Build Constants */
+declare const document;
+declare const DEVELOPMENT: boolean;
+declare const SENTRY_DSN: string;
+
+import {Aurelia} from 'aurelia-framework';
 import * as Log from "aurelia-logging";
 import {RavenLogAppender} from "./loggers/raven";
 
-declare const document;
-declare const DEVELOPMENT: boolean;
-declare const SENTRY_DSN: string|boolean;
-
-bootstrap((aurelia: Aurelia) => {
+export function configure(aurelia: Aurelia) {
   if (SENTRY_DSN) {
     Log.addAppender(aurelia.container.get(RavenLogAppender));
   }
@@ -31,8 +31,5 @@ bootstrap((aurelia: Aurelia) => {
       .developmentLogging();
   }
 
-  const rootElement = document.body;
-  rootElement.setAttribute('aurelia-app', '');
-
-  return aurelia.start().then(() => aurelia.setRoot('app', rootElement));
-});
+  return aurelia.start().then(() => aurelia.setRoot('app'));
+}

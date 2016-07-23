@@ -11,7 +11,7 @@ export class UsersAPI extends APIBase {
       .createRequest(`/users`)
       .asGet()
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<User[]>(res));
   }
 
   details(id?: string): Promise<User> {
@@ -19,7 +19,7 @@ export class UsersAPI extends APIBase {
       .createRequest(`/user${id ? `/${id}` : ""}`)
       .asGet()
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<User>(res));
   }
 
   create(user: NewUser): Promise<User> {
@@ -28,7 +28,7 @@ export class UsersAPI extends APIBase {
       .asPost()
       .withContent(user)
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<User>(res));
   }
 
   tokens(id: string): Promise<string[]> {
@@ -36,7 +36,7 @@ export class UsersAPI extends APIBase {
       .createRequest(`/user/${id}/tokens`)
       .asGet()
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<string[]>(res));
   }
 
   addToken(id: string, token: string): Promise<string[]> {
@@ -45,7 +45,7 @@ export class UsersAPI extends APIBase {
       .asPost()
       .withContent({ token })
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<string[]>(res));
   }
 
   revokeToken(id: string, token: string): Promise<string[]> {
@@ -53,7 +53,7 @@ export class UsersAPI extends APIBase {
       .createRequest(`/user/${id}/token/${token}`)
       .asDelete()
       .send()
-      .then(res => this.handleResponse(res));
+      .then(res => this.handleResponse<string[]>(res));
   }
 }
 
