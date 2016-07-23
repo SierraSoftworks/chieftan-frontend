@@ -8,10 +8,6 @@ import * as Log from "aurelia-logging";
 import {RavenLogAppender} from "./loggers/raven";
 
 export function configure(aurelia: Aurelia) {
-  if (SENTRY_DSN) {
-    Log.addAppender(aurelia.container.get(RavenLogAppender));
-  }
-
   aurelia.use
     .standardConfiguration()
     .globalResources([
@@ -29,6 +25,8 @@ export function configure(aurelia: Aurelia) {
     Log.setLevel(Log.logLevel.debug);
     aurelia.use
       .developmentLogging();
+  } else if (SENTRY_DSN) {
+    Log.addAppender(aurelia.container.get(RavenLogAppender));
   }
 
   return aurelia.start().then(() => aurelia.setRoot('app'));
