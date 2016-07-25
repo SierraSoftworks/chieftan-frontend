@@ -30,7 +30,7 @@ npm:build:
   dependencies:
     - npm:install
   script:
-    - VERSION="$CI_BUILD_REF_NAME-$CI_BUILD_REF" npm run build
+    - VERSION="$CI_BUILD_REF_NAME-$CI_BUILD_REF" npm run build:prod
   artifacts:
     name: $CI_BUILD_REF-app
     paths:
@@ -40,7 +40,7 @@ npm:build:
 gitlab:release:
   stage: release
   dependencies:
-    - npm:build:prod
+    - npm:build
   script:
     - 'echo "Registering release task"'
     - 'TASK_DATA=$(printf ''{"vars": { "BUILD": "%s", "VERSION": "%s" }, "metadata": { "description": "Version %s of the Chieftan Frontend (Build %s)", "url": "%s/commit/%s/builds" }}'' "$CI_BUILD_ID" "$CI_BUILD_REF" "$CI_BUILD_REF" "$CI_BUILD_ID" "$PROJECT_URL" "$CI_BUILD_REF")'
