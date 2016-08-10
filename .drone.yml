@@ -11,7 +11,7 @@ pipeline:
             - VERSION="$DRONE_COMMIT_BRANCH-$DRONE_COMMIT_SHA" npm run build:prod
 
     docker:
-        repo: chieftan/server
+        repo: chieftan/frontend
         tag:
             - latest
             - "${DRONE_COMMIT_BRANCH}"
