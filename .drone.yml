@@ -1,0 +1,22 @@
+pipeline:
+
+    npm:install:
+        image: node:6.3-slim
+        commands:
+            - npm install --silent --progress=false
+
+    npm:build:
+        image: node:6.3-slim
+        commands:
+            - VERSION="$DRONE_COMMIT_BRANCH-$DRONE_COMMIT_SHA" npm run build:prod
+
+    docker:
+        repo: chieftan/server
+        tag:
+            - latest
+            - "${DRONE_COMMIT_BRANCH}"
+        username: "${DOCKER_USERNAME}"
+        password: "${DOCKER_PASSWORD}"
+        email: "${DOCKER_EMAIL}"
+        build_args:
+            - "VERSION=${DRONE_COMMIT_SHA}"
