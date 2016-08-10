@@ -61,6 +61,6 @@ run `npm build && docker build .` to build a container image with the latest com
 application package.
 
 This container is based on `nginx:alpine`, making it very lightweight, and will listen
-on port 80 by default. You can follow the instructions on the
+on port 3000 by default. You can follow the instructions on the
 [NGINX Docker Image](https://hub.docker.com/_/nginx/) page to configure it differently,
 or place it behind a reverse proxy in production deployments.
