@@ -2,7 +2,7 @@ FROM nginx:1.11-alpine
 
 MAINTAINER Benjamin Pannell <admin@sierrasoftworks.com>
 
-COPY doc/nginx/nginx.conf /etc/nginx/conf.d/chieftan.conf
+COPY doc/nginx/chieftan.conf /etc/nginx/conf.d/chieftan.conf
 
 ARG VERSION
 LABEL version=${VERSION:-development}
