@@ -1,7 +1,7 @@
 import {autoinject, bindable} from "aurelia-framework";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {Router} from "aurelia-router";
-import {Breadcrumbs} from "./breadcrumb";
+import {Breadcrumbs} from "./breadcrumbs";
 import {UserManager} from "../managers/user";
 
 @autoinject

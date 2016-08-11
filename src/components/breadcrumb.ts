@@ -1,18 +1,6 @@
 import {autoinject, bindable, noView} from "aurelia-framework";
 import {AppRouter} from "aurelia-router";
-
-export class Breadcrumbs {
-  crumbs: Breadcrumb[] = [];
-
-  add(crumb: Breadcrumb) {
-    this.crumbs.push(crumb);
-  }
-
-  remove(crumb: Breadcrumb) {
-    const i = this.crumbs.indexOf(crumb);
-    if (~i) this.crumbs.splice(i, 1);
-  }
-}
+import {Breadcrumbs} from "./breadcrumbs";
 
 @autoinject
 @noView
