@@ -4,6 +4,7 @@
   <require from="./components/variable-editor"></require>
   <require from="./components/select-box"></require>
 
+  <breadcrumb name="Projects" route="projects"></breadcrumb>
   <breadcrumb name.bind="task.project.name" route="project" route-params.bind="{ project: task.project.id }"></breadcrumb>
   <breadcrumb name.bind="task.action.name" route="action" route-params.bind="{ action: task.action.id }"></breadcrumb>
   <breadcrumb name="Task" route="task" route-params.bind="{ task: task.id }"></breadcrumb>

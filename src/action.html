@@ -3,6 +3,7 @@
   <require from="./components/task-entry"></require>
   <require from="./components/task-snippet"></require>
 
+  <breadcrumb name="Projects" route="projects"></breadcrumb>
   <breadcrumb name.bind="action.project.name" route="project" route-params.bind="{ project: action.project.id }"></breadcrumb>
   <breadcrumb name.bind="action.name" route="action" route-params.bind="{ action: action.id }"></breadcrumb>
 

@@ -4,6 +4,7 @@
   <require from="./components/switch"></require>
   <require from="./components/variable-editor"></require>
 
+  <breadcrumb name="Projects" route="projects"></breadcrumb>
   <breadcrumb name.bind="project.name" route="project" route-params.bind="{ project: project.id }"></breadcrumb>
   <breadcrumb name.bind="action.name" route="action" route-params.bind="{ action: action.id }"></breadcrumb>
   <breadcrumb name="Edit" route="editAction" route-params.bind="{ action: action.id }"></breadcrumb>
