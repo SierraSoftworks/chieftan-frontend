@@ -8,7 +8,7 @@ pipeline:
     npm:build:
         image: node:6.3-slim
         commands:
-            - VERSION="$DRONE_COMMIT_BRANCH-$DRONE_COMMIT_SHA" npm run build:prod
+            - VERSION="$DRONE_COMMIT_SHA" FLAVOUR="$DRONE_COMMIT_BRANCH" npm run build:prod
 
     docker:
         repo: chieftan/frontend

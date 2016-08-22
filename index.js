@@ -3,7 +3,8 @@ import './styles/initial.less';
 import * as Raven from "raven-js"
 
 Raven.config(SENTRY_DSN, {
-  release: VERSION
+  release: VERSION,
+  environment: FLAVOUR
 }).install();
 
 if (window.addEventListener) {

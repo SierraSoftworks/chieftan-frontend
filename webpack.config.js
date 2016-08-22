@@ -13,6 +13,7 @@ const ELECTRON = process.env.ELECTRON && process.env.ELECTRON.toLowerCase() || f
 const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || 'development';
 const SENTRY_DSN = process.env.SENTRY_DSN || false;
 const VERSION = process.env.VERSION || ENV;
+const FLAVOUR = process.env.FLAVOUR || ENV;
 let config;
 
 // basic configuration:
@@ -75,6 +76,7 @@ const baseConfig = {
       SENTRY_DSN: JSON.stringify(SENTRY_DSN),
       VERSION: JSON.stringify(VERSION),
       ENV: JSON.stringify(ENV),
+      FLAVOUR: JSON.stringify(FLAVOUR),
       DEVELOPMENT: JSON.stringify(ENV === 'development')
     })
   ]

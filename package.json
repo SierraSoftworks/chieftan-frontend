@@ -63,7 +63,7 @@
     "jquery": "^3.1.0",
     "materialize-css": "^0.97.6",
     "moment": "^2.14.1",
-    "raven-js": "^3.2.1"
+    "raven-js": "^3.5.1"
   },
   "devDependencies": {
     "@easy-webpack/config-aurelia": "^2.0.1",
