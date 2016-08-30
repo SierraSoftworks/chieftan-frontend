@@ -1,12 +1,15 @@
 import {autoinject} from "aurelia-framework";
+import {EventAggregator} from "aurelia-event-aggregator";
 import {UsersAPI, User} from "../api/users";
 import * as Raven from "raven-js";
 
 @autoinject
 export class UserManager {
-  constructor(private usersAPI: UsersAPI) {
-
+  constructor(private usersAPI: UsersAPI, private eventAggregator: EventAggregator) {
+    
   }
+
+  private _userPromise: Promise<User>;
 
   private _user: User;
   get user(): User {
@@ -15,15 +18,20 @@ export class UserManager {
 
   set user(user: User) {
     this._user = user;
-    Raven.setUserContext(user && {
-      id: user.id,
-      email: user.email,
-      username: user.name
-    } || null);
+    this.eventAggregator.publish("user:updated", this._user);
+  }
+
+  get userPromise(): Promise<User> {
+    return this._userPromise = this._userPromise || this.usersAPI.details().then(user => {
+      this.user = user;
+      return user;
+    });
   }
 
   updateUser(): Promise<UserManager> {
-    return this.usersAPI.details().then(user => {
+    this._userPromise = this.usersAPI.details();
+    
+    return this._userPromise.then(user => {
       this.user = user;
       return this;
     });

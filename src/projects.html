@@ -1,5 +1,6 @@
 <template>
   <require from="./components/breadcrumb"></require>
+  <require from="./components/permission"></require>
 
   <breadcrumb name="Projects" route="projects"></breadcrumb>
 
@@ -19,12 +20,15 @@
     <div repeat.for="project of projects">
       <div class="card">
         <div class="card-content">
-          <span class="card-title">${project.name}</span>
+          <span class="card-title">
+            ${project.name}
+            <permission class="right" permission="project/:project" context.bind="{ project: project.id }"></permission>
+          </span>
           <p>${project.description}</p>
         </div>
 
         <div class="card-action">
-          <a route-href="route: project; params.bind: { project: project.id }">Dashboard</a>
+          <a route-href="route: project; params.bind: { project: project.id }" if.bind="'project/:project' & hasPermission:{project:project.id}">Dashboard</a>
           <a href.bind="project.url">Website</a>
         </div>
       </div>

@@ -13,7 +13,7 @@ export class ProjectsView {
   activate() {
     return this.projectsAPI.list().then(projects => {
       this.projects = projects;
-    }).catch(() => {
+    }).catch(err => {
       this.router.navigateToRoute("config");
     });
   }

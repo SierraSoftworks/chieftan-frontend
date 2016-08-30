@@ -16,7 +16,9 @@ export function configure(aurelia: Aurelia) {
       "converters/keyValue",
       "converters/not",
       "converters/output",
+      "converters/permissions",
       "converters/relativeTime",
+      "converters/ternary",
     ]);
 
   Log.setLevel(Log.logLevel.info);

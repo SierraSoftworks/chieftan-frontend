@@ -1,13 +1,15 @@
 import {autoinject} from "aurelia-framework";
 import {UsersAPI, User} from "./api/users";
+import {ProjectsAPI, Project} from "./api/projects";
 
 @autoinject
 export class UserView {
-  constructor(private usersAPI: UsersAPI) {
+  constructor(private usersAPI: UsersAPI, private projectsAPI: ProjectsAPI) {
     this.crypto = window.crypto || (<any>window).msCrypto;
   }
 
   user: User = null;
+  projects: Project[] = [];
   tokens: string[] = [];
 
   crypto: Crypto;
@@ -19,6 +21,9 @@ export class UserView {
       }),
       this.usersAPI.tokens(params.id).then(tokens => {
         this.tokens = tokens;
+      }),
+      this.projectsAPI.list().then(projects => {
+        this.projects = projects;
       })
     ]);
   }
@@ -45,5 +50,9 @@ export class UserView {
     this.usersAPI.revokeToken(this.user.id, token).then(tokens => {
       this.tokens = tokens;
     });
+  }
+
+  hasPermission(permission: string) {
+    return this.user && !!~this.user.permissions.indexOf(permission);
   }
 }

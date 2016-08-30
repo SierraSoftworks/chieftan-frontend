@@ -1,8 +1,9 @@
 import "../styles/styles.less";
 
 import {Aurelia, autoinject} from 'aurelia-framework';
-import {Router, RouterConfiguration} from 'aurelia-router';
+import {Router, RouterConfiguration, NavigationInstruction, Next, RedirectToRoute} from 'aurelia-router';
 import {UserManager} from "./managers/user";
+import {HasPermission} from "./managers/permissions";
 import * as Raven from "raven-js";
 
 @autoinject
@@ -18,22 +19,25 @@ export class App {
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Chieftan';
     config.options.pushState = true;
+
+    config.addAuthorizeStep(PermissionStep);
+
     config.map([
       { route: '', name: 'projects', moduleId: './projects', nav: false, title: 'Projects' },
-      { route: 'project/new', name: 'newProject', moduleId: './newProject', nav: false, title: 'New Project' },
-      { route: 'project/:project', name: 'project', moduleId: './project', nav: false, title: 'Project' },
-      { route: 'project/:project/actions', name: 'actions', moduleId: './actions', nav: false, title: 'Actions' },
-      { route: 'project/:project/actions/new', name: 'newAction', moduleId: './newAction', nav: false, title: 'New Action' },
+      { route: 'project/new', name: 'newProject', moduleId: './newProject', nav: false, title: 'New Project', settings: { permission: 'admin' } },
+      { route: 'project/:project', name: 'project', moduleId: './project', nav: false, title: 'Project', settings: { permission: 'project/:project' } },
+      { route: 'project/:project/actions', name: 'actions', moduleId: './actions', nav: false, title: 'Actions', settings: { permission: 'project/:project' } },
+      { route: 'project/:project/actions/new', name: 'newAction', moduleId: './newAction', nav: false, title: 'New Action', settings: { permission: 'project/:project/admin' } },
       { route: 'action/:action', name: 'action', moduleId: './action', nav: false, title: 'Action' },
       { route: 'action/:action/edit', name: 'editAction', moduleId: './editAction', nav: false, title: 'Edit Action' },
-      { route: 'project/:project/tasks', name: 'tasks', moduleId: './tasks', nav: false, title: 'Tasks' },
+      { route: 'project/:project/tasks', name: 'tasks', moduleId: './tasks', nav: false, title: 'Tasks', settings: { permission: 'project/:project' } },
       { route: 'action/:action/tasks', name: 'actionTasks', moduleId: './actionTasks', nav: false, title: 'Tasks' },
       { route: 'task/:task', name: 'task', moduleId: './task', nav: false, title: 'Task' },
-      { route: 'audit', name: 'audit', moduleId: './audit', nav: true, title: 'Audit Log' },
-      { route: 'users', name: 'users', moduleId: './users', nav: true, title: 'Users' },
-      { route: 'users/new', name: 'newUser', moduleId: './newUser', nav: false, title: 'New User' },
-      { route: 'user/:id', name: 'user', moduleId: './user', nav: false, title: 'User' },
-      { route: 'audit/:id', name: 'auditEntry', moduleId: './auditEntry', nav: false, title: 'Audit Log Details' },
+      { route: 'audit', name: 'audit', moduleId: './audit', nav: true, title: 'Audit Log', settings: { permission: 'admin' } },
+      { route: 'users', name: 'users', moduleId: './users', nav: true, title: 'Users', settings: { permission: 'admin/users' } },
+      { route: 'users/new', name: 'newUser', moduleId: './newUser', nav: false, title: 'New User', settings: { permission: 'admin/users' } },
+      { route: 'user/:id', name: 'user', moduleId: './user', nav: false, title: 'User', settings: { permission: 'admin/users' } },
+      { route: 'audit/:id', name: 'auditEntry', moduleId: './auditEntry', nav: false, title: 'Audit Log Details', settings: { permission: 'admin' } },
       { route: 'config', name: 'config', moduleId: './config', nav: true, title: 'Settings' },
     ]);
   }
@@ -45,6 +49,30 @@ export class App {
       });
 
       this.router.navigateToRoute("config");
+    });
+  }
+}
+
+@autoinject
+class PermissionStep {
+  constructor(private userManager: UserManager) {
+
+  }
+
+  run(instruction: NavigationInstruction, next: Next) {
+    this.userManager.userPromise.then(user => {
+      const hasPermission = instruction.getAllInstructions().every(instruction => {
+        if (!instruction.config.settings.permission) return true;
+
+        return HasPermission(user, instruction.config.settings.permission, instruction.params);
+      });
+
+      console.log(hasPermission);
+
+      if (!hasPermission) return next.reject();
+      return next();
+    }).catch(err => {
+      return next.reject();
     });
   }
 }

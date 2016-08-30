@@ -1,0 +1,26 @@
+<template>
+  <div class="icon
+    ${permissionLevel|hasFlag:Level.ReadWrite|ternary:'read-write':''}
+    ${permissionLevel|hasFlag:Level.ReadOnly|ternary:'read-only':''}
+    ${permissionLevel|hasFlag:Level.NoAccess|ternary:'no-access':''}" click.delegate="open = !open">
+    <i class="mi" if.bind="permissionLevel != NoAccess">lock_open</i>
+    <i class="mi" if.bind="permissionLevel == NoAccess">lock_outline</i>
+  </div>
+  <div class="editor-backdrop" click.delegate="open = false" if.bind="open"></div>
+  <div class="editor ${open ? 'visible' : 'hidden'}">
+    <ul>
+      <li class="${permissionLevel|hasFlag:Level.ReadWrite|ternary:'active':''}" click.delegate="setLevel(Level.ReadWrite)">
+        <h5>Read/Write</h5>
+        <p>Allow the creation of new actions and modification of existing ones.</p>
+      </li>
+      <li class="${permissionLevel|hasFlag:Level.ReadOnly|ternary:'active':''}" click.delegate="setLevel(Level.ReadOnly)">
+        <h5>Read Only</h5>
+        <p>Only allow the creation and execution of tasks for existing actions.</p>
+      </li>
+      <li class="${permissionLevel|hasFlag:Level.NoAccess|ternary:'active':''} ${permissionLevel|hasFlag:Level.Inherited|ternary:'disabled':''}"  click.delegate="setLevel(Level.NoAccess)">
+        <h5>No Access</h5>
+        <p>Deny access to this project's actions and tasks.</p>
+      </li>
+    </ul>
+  </div>
+</template>

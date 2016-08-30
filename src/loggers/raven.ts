@@ -1,8 +1,18 @@
 import * as Log from "aurelia-logging";
+import {EventAggregator} from "aurelia-event-aggregator";
 import * as Raven from "raven-js";
+import {User} from "../api/users";
 
 export class RavenLogAppender implements Log.Appender {
-  constructor() {
+  constructor(private events: EventAggregator) {
+    events.subscribe("user:updated", (user: User) => {
+      Raven.setUserContext(user && {
+        id: user.id,
+        email: user.email,
+        username: user.name
+      } || null);
+    });
+
     if (!console) return;
 
     if (!console.trace) {

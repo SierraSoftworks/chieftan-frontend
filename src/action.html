@@ -17,7 +17,7 @@
   </div>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a route-href="route: editAction; params.bind: { action: action.id }" class="btn-floating btn-large red">
+    <a route-href="route: editAction; params.bind: { action: action.id }" class="btn-floating btn-large red" if.bind="'project/:project/admin' & hasPermission:{ project: action.project.id }">
       <i class="mi">create</i>
     </a>
   </div>

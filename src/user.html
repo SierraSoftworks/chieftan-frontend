@@ -1,5 +1,6 @@
 <template>
   <require from="./components/breadcrumb"></require>
+  <require from="./components/permission"></require>
 
   <breadcrumb name="Users" route="users"></breadcrumb>
   <breadcrumb name.bind="user.name" route="user" route-params.bind="{ id: user.id }"></breadcrumb>
@@ -52,6 +53,34 @@
         </div>
         <div class="card-action">
           <a href="#" click.delegate="newToken()">New Token</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="center">
+    <h3>Project Access</h3>
+  </div>
+
+  <div class="cards-box cards-box-4l">
+
+    <div repeat.for="project of projects">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            ${project.name}
+            <permission class="right" user.bind="user" permission="project/:project" context.bind="{ project: project.id }"></permission>
+          </span>
+          <p>${project.description}</p>
+        </div>
+
+        <div class="card-action">
+          <a class="clickable" if.bind="!hasPermission('project/' + project.id)">Grant Access</a>
+          <a class="clickable" if.bind="hasPermission('project/' + project.id)">Revoke Access</a>
+
+          <a class="clickable" if.bind="!hasPermission('project/' + project.id + '/admin')">Make Admin</a>
+          <a class="clickable" if.bind="hasPermission('project/' + project.id + '/admin')">Revoke Admin</a>
         </div>
       </div>
     </div>

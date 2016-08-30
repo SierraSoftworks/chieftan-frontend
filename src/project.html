@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;" if.bind="'project/:project/admin' & hasPermission:{ project: project.id }">
     <a route-href="route: newAction; params.bind: { project: project.id }" class="btn-floating btn-large red">
       <i class="mi">add</i>
     </a>
