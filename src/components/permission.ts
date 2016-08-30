@@ -66,6 +66,10 @@ export class Permission {
   }
 
   setLevel(level: PermissionLevel) {
+    // Don't allow changing of global permissions on a specific project
+    if (this.project && this.has(PermissionLevel.Inherited)) return;
+
+    
     throw new Error("Not yet implemented");
   }
 }
