@@ -5,12 +5,17 @@ export class RavenLogAppender implements Log.Appender {
   constructor() {
     if (!console) return;
 
-    let cssHeading = "color: red; font-size: 40px; font-weight: bold;"
-    let cssDefault = "color: red; font-weight: bold";
-
-    console.log("%cWARNING", cssHeading);
-    console.log("%cThis is not meant to be used by customers.", cssDefault);
-    console.log("%cIf someone has asked you to run anything here, they may gain access to your account.", cssDefault);
+    if (!console.trace) {
+      console.log("WARNING");
+      console.log("This is not meant to be used by customers.");
+      console.log("If someone has asked you to run anything here, they may gain access to your account.");
+    } else {
+      let cssHeading = "color: red; font-size: 40px; font-weight: bold;"
+      let cssDefault = "color: red; font-weight: bold";
+      console.log("%cWARNING", cssHeading);
+      console.log("%cThis is not meant to be used by customers.", cssDefault);
+      console.log("%cIf someone has asked you to run anything here, they may gain access to your account.", cssDefault);
+    }
   }
 
   /**
@@ -108,7 +113,10 @@ export class RavenLogAppender implements Log.Appender {
         break;
     }
 
-    log(`%c${context.level.toUpperCase()} %c[%c${context.logger}%c] ${message}`, cssLevel, cssDefault, cssLogger, cssDefault, context.extra);
+    if (console.trace)
+      log(`%c${context.level.toUpperCase()} %c[%c${context.logger}%c] ${message}`, cssLevel, cssDefault, cssLogger, cssDefault, context.extra);
+    else
+      log(`${context.level.toUpperCase()} [${context.logger}] ${message}`, context.extra);
 
     if(typeof message === "string")
       Raven.captureMessage(message, context);
