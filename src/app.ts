@@ -67,8 +67,6 @@ class PermissionStep {
         return HasPermission(user, instruction.config.settings.permission, instruction.params);
       });
 
-      console.log(hasPermission);
-
       if (!hasPermission) return next.cancel();
       return next();
     }).catch(err => {
