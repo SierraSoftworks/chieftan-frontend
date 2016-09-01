@@ -10,3 +10,16 @@ export function HasPermission(user: User, permission: string, context: { [id: st
 
   return !!~user.permissions.indexOf(filledPermission);
 }
+
+export interface PermissionLevel {
+  permissions: string[];
+  title: string;
+  description: string;
+
+  icon?: {
+    glyph: string;
+    activeColour: string;
+  };
+
+  assign?: () => void;
+}

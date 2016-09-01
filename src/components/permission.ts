@@ -3,17 +3,7 @@ import {EventAggregator, Subscription} from "aurelia-event-aggregator";
 import {UserManager} from "../managers/user";
 import {User, UsersAPI} from "../api/users";
 import {Project} from "../api/projects";
-import {HasPermission} from "../managers/permissions";
-
-enum PermissionLevel {
-  NoAccess = 0,
-  ReadOnly = 1,
-  ReadWrite = 2,
-  Inherited = 4,
-
-  InheritedReadOnly = ReadOnly | Inherited,
-  InheritedReadWrite = ReadWrite | Inherited
-}
+import {HasPermission, PermissionLevel} from "../managers/permissions";
 
 @autoinject
 export class Permission {
@@ -23,54 +13,57 @@ export class Permission {
 
   @bindable user: User|null = null;
   @bindable project: Project|null = null;
+  @bindable permissionLevels: PermissionLevel[] = [
+    {
+      title: "Read/Write",
+      description: "Allow modification of this project and its various resources.",
+      permissions: ["project/:project", "project/:project/admin"],
+      icon: {
+        glyph: "lock_open",
+        activeColour: "#519C10"
+      }
+    },{
+      title: "Read Only",
+      description: "Only allow viewing of project resources and triggering of tasks.",
+      permissions: ["project/:project"],
+      icon: {
+        glyph: "lock_open",
+        activeColour: "#356AD5"
+      }
+    },{
+      title: "No Access",
+      description: "Don't allow access to this project",
+      permissions: [],
+      icon: {
+        glyph: "lock_outline",
+        activeColour: "#CFA500"
+      }
+    }
+  ];
 
   private userChangeHandler: Subscription;
-  private permissionLevel: PermissionLevel = PermissionLevel.NoAccess;
-
-  private Level = PermissionLevel;
+  private activePermissionLevel: PermissionLevel = null;
 
   bind() {
     this.userChangeHandler = this.events.subscribe("user:updated", (user: User) => {
-      this.updateState();
+      this.updateActiveLevel();
     });
 
-    this.updateState();
+    this.updateActiveLevel();
   }
 
   unbind() {
     this.userChangeHandler.dispose();
   }
 
-  updateState() {
-    const hasReadOnlyInherited = HasPermission(this.user || this.userManager.user, "project/:project");
-    const hasReadOnly = HasPermission(this.user || this.userManager.user, "project/:project", {
-      project: this.project && this.project.id
-    });
-
-    const hasReadWriteInherited = HasPermission(this.user || this.userManager.user, "project/:project/admin");
-    const hasReadWrite = HasPermission(this.user || this.userManager.user, "project/:project/admin", {
-      project: this.project && this.project.id
-    });
-
-    if (hasReadWrite)
-      this.permissionLevel = PermissionLevel.ReadWrite | (hasReadWriteInherited ? PermissionLevel.Inherited : PermissionLevel.NoAccess);
-    else if (hasReadOnly)
-      this.permissionLevel = PermissionLevel.ReadOnly | (hasReadOnlyInherited ? PermissionLevel.Inherited : PermissionLevel.NoAccess);
-    else
-      this.permissionLevel = PermissionLevel.NoAccess; 
-  }
-
-  has(level: PermissionLevel) {
-    if (this.permissionLevel === level) return true;
-    return (level & this.permissionLevel) !== 0;
-  }
-
-  setLevel(level: PermissionLevel) {
-    // Don't allow changing of global permissions on a specific project
-    if (this.project && this.has(PermissionLevel.Inherited)) return;
-
-    
-    throw new Error("Not yet implemented");
+  private updateActiveLevel() {
+    this.activePermissionLevel = this.permissionLevels.find(level => 
+      level.permissions.every(permission => 
+        HasPermission(this.user || this.userManager.user, permission, {
+          project: this.project && this.project.id
+        })
+      )
+    );
   }
 }
 
