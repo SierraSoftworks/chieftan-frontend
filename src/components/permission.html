@@ -3,7 +3,7 @@
     <i class="mi" css="color: ${level.icon.activeColour};">${level.icon.glyph}</i>
   </div>
   <div class="editor-backdrop" click.delegate="open = false" if.bind="open"></div>
-  <div class="editor ${open ? 'visible' : 'hidden'}">
+  <div class="editor left ${open ? 'visible' : 'hidden'}">
     <ul>
       <li repeat.for="l of levels" class="${l.assign ? '' : 'disabled'}" click.delegate="l.assign && l.assign(user || userManager.user, project)">
         <div class="state">

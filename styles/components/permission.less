@@ -24,8 +24,6 @@ permission {
 
   .editor {
     position: absolute;
-    top: 0.5em;
-    left: 1em;
     background: #fff;
     will-change: opacity;
     transition: .3s ease opacity;
@@ -43,6 +41,28 @@ permission {
       pointer-events: none;
     }
 
+    &.right {
+      top: 0.5em;
+      left: 1em;
+
+      &::before {
+        top: 7px;
+        left: -20px;
+        border-right: 10px solid #fff;
+      }
+    }
+
+    &.left {
+      top: 0.5em;
+      right: 1em;
+
+      &::before {
+        top: 7px;
+        right: -20px;
+        border-left: 10px solid #fff;
+      }
+    }
+
     &::before {
       display: block;
       position: absolute;
@@ -52,10 +72,7 @@ permission {
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;
       border-left: 10px solid transparent;
-
-      top: 7px;
-      left: -20px;
-      border-right: 10px solid #fff;
+      border-right: 10px solid transparent;
     }
 
     ul {
