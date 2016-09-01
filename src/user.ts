@@ -1,6 +1,7 @@
 import {autoinject} from "aurelia-framework";
 import {UsersAPI, User} from "./api/users";
 import {ProjectsAPI, Project} from "./api/projects";
+import {PermissionLevel} from "./managers/permissions";
 
 @autoinject
 export class UserView {
@@ -13,6 +14,44 @@ export class UserView {
   tokens: string[] = [];
 
   crypto: Crypto;
+
+  projectPermissionLevels: PermissionLevel[] = [
+    {
+      title: "Read/Write",
+      description: "Allow modification of this project and its various resources.",
+      permissions: ["project/:project", "project/:project/admin"],
+      icon: {
+        glyph: "lock_open",
+        activeColour: "#519C10"
+      },
+      assign: (user, context) => {
+        this.addPermissions(`project/${context["project"]}`, `project/${context["project"]}/admin`)
+      }
+    },{
+      title: "Read Only",
+      description: "Only allow viewing of project resources and triggering of tasks.",
+      permissions: ["project/:project"],
+      icon: {
+        glyph: "lock_open",
+        activeColour: "#356AD5"
+      },
+      assign: (user, context) => {
+        this.addPermissions(`project/${context["project"]}`)
+        this.removePermissions(`project/${context["project"]}/admin`)
+      }
+    },{
+      title: "No Access",
+      description: "Don't allow access to this project",
+      permissions: [],
+      icon: {
+        glyph: "lock_outline",
+        activeColour: "#CFA500"
+      },
+      assign: (user, context) => {
+        this.removePermissions(`project/${context["project"]}`, `project/${context["project"]}/admin`)
+      }
+    }
+  ]
 
   activate(params: { id: string; }) {
     return Promise.all([
@@ -54,5 +93,17 @@ export class UserView {
 
   hasPermission(permission: string) {
     return this.user && !!~this.user.permissions.indexOf(permission);
+  }
+
+  addPermissions(...permissions: string[]) {
+    this.usersAPI.addPermissions(this.user.id, permissions).then(user => {
+      this.user = user;
+    });
+  }
+
+  removePermissions(...permissions: string[]) {
+    this.usersAPI.removePermissions(this.user.id, permissions).then(user => {
+      this.user = user;
+    });
   }
 }

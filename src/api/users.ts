@@ -55,6 +55,33 @@ export class UsersAPI extends APIBase {
       .send()
       .then(res => this.handleResponse<string[]>(res));
   }
+
+  addPermissions(id: string, permissions: string[]): Promise<User> {
+    return this.http
+      .createRequest(`/user/${id}/permissions`)
+      .asPost()
+      .withContent({ permissions })
+      .send()
+      .then(res => this.handleResponse<User>(res));
+  }
+
+  setPermissions(id: string, permissions: string[]): Promise<User> {
+    return this.http
+      .createRequest(`/user/${id}/permissions`)
+      .asPut()
+      .withContent({ permissions })
+      .send()
+      .then(res => this.handleResponse<User>(res));
+  }
+
+  removePermissions(id: string, permissions: string[]): Promise<User> {
+    return this.http
+      .createRequest(`/user/${id}/permissions`)
+      .asDelete()
+      .withContent({ permissions })
+      .send()
+      .then(res => this.handleResponse<User>(res));
+  }
 }
 
 
