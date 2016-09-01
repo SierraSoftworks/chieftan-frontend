@@ -40,6 +40,8 @@ export class App {
       { route: 'audit/:id', name: 'auditEntry', moduleId: './auditEntry', nav: false, title: 'Audit Log Details', settings: { permission: 'admin' } },
       { route: 'config', name: 'config', moduleId: './config', nav: true, title: 'Settings' },
     ]);
+
+    config.mapUnknownRoutes({ route: '/errors/notfound', name: 'errorNotFound', moduleId: './errors/notfound', nav: false, title: 'Not Found' })
   }
 
   private updateUser() {

@@ -1,0 +1,80 @@
+<template>
+  <require from="../components/breadcrumb"></require>
+
+  <breadcrumb name="Projects" route="projects"></breadcrumb>
+  <breadcrumb name="Not Found" url.one-time="location.pathname"></breadcrumb>
+  
+  <div class="row">
+    <div class="col s12 center-align">
+      <h2>Not Found</h2>
+      <p>Sorry, we couldn't find the page you were looking for - please make sure you've entered a valid URL.</p>
+    </div>
+  </div>
+
+  <div class="cards-box cards-box-3l">
+    <div>
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">
+            Technical Info
+          </div>
+          <table>
+            <tr>
+              <td><strong>Code</strong></td>
+              <td>404 Not Found</td>
+            </tr>
+            <tr>
+              <td><strong>Reason</strong></td>
+              <td>No route has been registered to handle this URL.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">
+            Requested Route
+          </div>
+          <table>
+            <tr>
+              <td><strong>Path</strong></td>
+              <td>${location.pathname & oneTime}</td>
+            </tr>
+            <tr>
+              <td><strong>Query</strong></td>
+              <td>${location.search & oneTime}</td>
+            </tr>
+            <tr>
+              <td><strong>Hash</strong></td>
+              <td>${location.hash & oneTime}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div if.one-time="hasRavenDSN">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">
+            Report Broken URL
+          </div>
+          <p>
+            If you reached this page from a URL somewhere else and feel we should
+            do something to fix it, please let us know by filing a report.
+          </p>
+          <p>
+            We'll do our best to ensure that the problem is fixed, but it might
+            not be possible for us to fix it directly.
+          </p>
+          <p class="center">
+            <button class="btn orange" click.delegate="report()">Report</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
