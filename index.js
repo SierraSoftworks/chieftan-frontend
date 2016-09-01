@@ -3,6 +3,7 @@ import './styles/initial.less';
 import * as Raven from "raven-js"
 
 Raven.config(SENTRY_DSN, {
+  serverName: location.host,
   release: VERSION,
   environment: FLAVOUR
 }).install();
