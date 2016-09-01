@@ -64,7 +64,7 @@ class PermissionStep {
   run(instruction: NavigationInstruction, next: Next) {
     return this.userManager.userPromise.then(user => {
       const hasPermission = instruction.getAllInstructions().every(instruction => {
-        if (!instruction.config.settings.permission) return true;
+        if (!instruction.config.settings || !instruction.config.settings.permission) return true;
 
         return HasPermission(user, instruction.config.settings.permission, instruction.params);
       });
@@ -73,7 +73,7 @@ class PermissionStep {
       return next();
     }).catch(err => {
       const requiresPermission = instruction.getAllInstructions().some(instruction => {
-        return !!instruction.config.settings.permission;
+        return instruction.config.settings && !!instruction.config.settings.permission;
       });
 
       if (!requiresPermission) return next();
