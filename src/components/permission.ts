@@ -12,7 +12,7 @@ export class Permission {
   }
 
   @bindable user: User|null = null;
-  @bindable project: Project|null = null;
+  @bindable context: {[id: string]: string} = {};
   @bindable levels: PermissionLevel[] = [
     {
       title: "Read/Write",
@@ -59,9 +59,7 @@ export class Permission {
   private updateActiveLevel() {
     this.level = this.levels.find(level => 
       level.permissions.every(permission => 
-        HasPermission(this.user || this.userManager.user, permission, {
-          project: this.project && this.project.id
-        })
+        HasPermission(this.user || this.userManager.user, permission, this.context)
       )
     );
   }
