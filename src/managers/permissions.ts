@@ -1,4 +1,5 @@
 import {User} from "../api/users";
+import {Project} from "../api/projects";
 
 export function HasPermission(user: User, permission: string, context: { [id: string]: string; } = {}) {
   if (!user) return false;
@@ -21,5 +22,5 @@ export interface PermissionLevel {
     activeColour: string;
   };
 
-  assign?: () => void;
+  assign?: (user: User, project: Project) => void;
 }

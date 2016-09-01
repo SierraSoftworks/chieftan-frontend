@@ -5,7 +5,7 @@
   <div class="editor-backdrop" click.delegate="open = false" if.bind="open"></div>
   <div class="editor ${open ? 'visible' : 'hidden'}">
     <ul>
-      <li repeat.for="l of levels" class="${l.assign ? '' : 'disabled'}" click.delegate="l.assign && l.assign()">
+      <li repeat.for="l of levels" class="${l.assign ? '' : 'disabled'}" click.delegate="l.assign && l.assign(user || userManager.user, project)">
         <div class="state">
           <i class="mi" if.bind="level === l">check_circle</i>
         </div>
