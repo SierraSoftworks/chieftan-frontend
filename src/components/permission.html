@@ -1,17 +1,17 @@
 <template>
   <div class="icon" click.delegate="open = !open">
-    <i class="mi" css="color: ${activePermissionLevel.icon.activeColour};">${activePermissionLevel.icon.glyph}</i>
+    <i class="mi" css="color: ${level.icon.activeColour};">${level.icon.glyph}</i>
   </div>
   <div class="editor-backdrop" click.delegate="open = false" if.bind="open"></div>
   <div class="editor ${open ? 'visible' : 'hidden'}">
     <ul>
-      <li repeat.for="level of permissionLevels" class="${level.assign ? '' : 'disabled'}" click.delegate="level.assign && level.assign()">
+      <li repeat.for="l of levels" class="${l.assign ? '' : 'disabled'}" click.delegate="l.assign && l.assign()">
         <div class="state">
-          <i class="mi" if.bind="level === activePermissionLevel">check_circle</i>
+          <i class="mi" if.bind="level === l">check_circle</i>
         </div>
         <div class="details">
-          <h5>${level.title}</h5>
-          <p>${level.description}</p>
+          <h5>${l.title}</h5>
+          <p>${l.description}</p>
         </div>
       </li>
     </ul>

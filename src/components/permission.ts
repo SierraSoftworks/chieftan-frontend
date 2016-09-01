@@ -13,7 +13,7 @@ export class Permission {
 
   @bindable user: User|null = null;
   @bindable project: Project|null = null;
-  @bindable permissionLevels: PermissionLevel[] = [
+  @bindable levels: PermissionLevel[] = [
     {
       title: "Read/Write",
       description: "Allow modification of this project and its various resources.",
@@ -42,7 +42,7 @@ export class Permission {
   ];
 
   private userChangeHandler: Subscription;
-  private activePermissionLevel: PermissionLevel = null;
+  private level: PermissionLevel = null;
 
   bind() {
     this.userChangeHandler = this.events.subscribe("user:updated", (user: User) => {
@@ -57,7 +57,7 @@ export class Permission {
   }
 
   private updateActiveLevel() {
-    this.activePermissionLevel = this.permissionLevels.find(level => 
+    this.level = this.levels.find(level => 
       level.permissions.every(permission => 
         HasPermission(this.user || this.userManager.user, permission, {
           project: this.project && this.project.id
