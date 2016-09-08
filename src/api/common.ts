@@ -1,58 +1,17 @@
 import {autoinject} from "aurelia-framework";
 import {Router} from "aurelia-router";
 import {HttpClient, HttpResponseMessage} from "aurelia-http-client";
+import {EnvironmentManager} from "../managers/environments";
 
 @autoinject
 export class APIBase {
-  constructor(protected http: HttpClient, private router: Router) {
-    http.configure(b => {
-      b.withBaseUrl(`${this.url}/api/v1`);
-      this.token && b.withHeader("Authorization", `Token ${this.token}`);
-    });
-  }
-
-  private get _token(): string {
-    const configuredServer = localStorage.getItem("token");
-    return configuredServer || "";
-  }
-
-  private set _token(token: string) {
-    localStorage.setItem("token", token);
-  }
-
-  private _cached_token: string = null;
-
-  get token(): string {
-    return this._cached_token || (this._cached_token = this._token);
-  }
-
-  set token(token: string) {
-    this._token = token;
-    this._cached_token = token;
-    this.http.configure(b => {
-      token && b.withHeader("Authorization", `Token ${token}`);
-    });
-  }
-  
-  private get _url(): string {
-    const configuredServer = localStorage.getItem("server");
-    return configuredServer || `${location.protocol}//${location.host}`;
-  }
-
-  private set _url(url: string) {
-    localStorage.setItem("server", url);
-  }
-
-  private _cached_url: string = null;
-  get url(): string {
-    return this._cached_url || (this._cached_url = this._url);
-  }
-
-  set url(url: string) {
-    this._url = url;
-    this._cached_url = url;
-    this.http.configure(b => {
-      b.withBaseUrl(`${this.url}/api/v1`);
+  constructor(protected http: HttpClient, private router: Router, private env: EnvironmentManager) {
+    env.subscribe((e) => {
+      if (!e) return;
+      http.configure(b => {
+        b.withBaseUrl(`${e.url}/api/v1`);
+        e.token && b.withHeader("Authorization", `Token ${e.token}`);
+      });
     });
   }
 

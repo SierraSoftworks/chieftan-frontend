@@ -1,11 +1,11 @@
 import {autoinject, bindable, computedFrom} from "aurelia-framework";
 import {Action} from "../api/actions";
 import {CodeSnippetGenerators, CodeSnippetConfig} from "./code-snippets";
-import {APIBase} from "../api/common";
+import {EnvironmentManager} from "../managers/environments";
 
 @autoinject
 export class TaskSnippet {
-  constructor(private config: CodeSnippetConfig, private api: APIBase, private generators: CodeSnippetGenerators) {
+  constructor(private config: CodeSnippetConfig, private envs: EnvironmentManager, private generators: CodeSnippetGenerators) {
 
   }
 
@@ -19,8 +19,8 @@ export class TaskSnippet {
       if (vars[k]) delete vars[k];
     }
 
-    return generator.writeHttpRequest("POST", `${this.api.url}/api/v1/action/${this.action.id}/tasks`, {
-      Authorization: `Token ${this.api.token}`
+    return generator.writeHttpRequest("POST", `${this.envs.active.url}/api/v1/action/${this.action.id}/tasks`, {
+      Authorization: `Token ${this.envs.active.token}`
     }, {
       vars: vars,
       metadata: {

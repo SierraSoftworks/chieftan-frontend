@@ -15,14 +15,14 @@
             Configure Chieftan
           </h2>
 
-          <h5>Chieftan API</h5>
+          <!--<h5>Chieftan API</h5>
           <p class="space-bottom">
             Configure your browser to use a specific Chieftan server and setup your auth
             token if required.
-          </p>
+          </p>-->
 
-          <input-field label="API Server" value.bind="api.url & debounce:500" type="url" valid.call="validateURL($event)" valid-text="server available" invalid-text="server unavailable"></input-field>
-          <input-field label="API Token" value.bind="api.token & debounce:500" type="text" valid.call="validateToken($event)" valid-text="token valid" invalid-text="token invalid"></input-field>
+          <!--<input-field label="API Server" value.bind="api.url & debounce:500" type="url" valid.call="validateURL($event)" valid-text="server available" invalid-text="server unavailable"></input-field>
+          <input-field label="API Token" value.bind="api.token & debounce:500" type="text" valid.call="validateToken($event)" valid-text="token valid" invalid-text="token invalid"></input-field>-->
 
           <h5>Code Snippets</h5>
           <p class="space-bottom">
@@ -46,6 +46,38 @@
           </div>
 
           <terminal name="Example Terminal" value.bind="exampleSnippet" style.bind="taskSnippets.language.id" language.bind="taskSnippets.language.id"></terminal>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m8 push-m2 l6 push-l3">
+      <div class="card">
+        <div class="card-content">
+          <h2>Environments</h2>
+
+          <select-box class="space-bottom" options.bind="envs.environments" value.bind="envs.active" placeholder="Select an environment">
+            <template replace-part="current">
+              ${value.name}
+
+              <span class="grey-text right">${value.url}</span>
+            </template>
+            <template replace-part="item">
+              ${item.name}
+
+              <span class="grey-text right">${item.url}</span>
+            </template>
+          </select-box>
+
+          <input-field value.bind="envs.active.name" label="Environment Name" valid.call="validateName($event)" valid-text="looks good" invalid-text="enter a name for your environment"></input-field>
+          <input-field value.bind="envs.active.url" label="Environment URL" valid.bind="envs.state.available" valid-text="looks good" invalid-text="enter a valid URL for your environment's API server"></input-field>
+          <input-field value.bind="envs.active.token" label="Access Token" valid.bind="envs.state.authentication" valid-text="looks good" invalid-text="enter a valid token for your environment"></input-field>
+
+          <p class="center">
+            <button class="btn green" click.delegate="newEnvironment()">Create New</button>
+            <button class="btn blue" click.delegate="saveEnvironments()">Save Changes</button>
+          </p>
         </div>
       </div>
     </div>

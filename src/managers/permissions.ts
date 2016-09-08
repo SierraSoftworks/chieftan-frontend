@@ -1,6 +1,7 @@
 import {User} from "../api/users";
 
 export function HasPermission(user: User, permission: string, context: { [id: string]: string; } = {}) {
+  if (!permission) return true;
   if (!user) return false;
   if (~user.permissions.indexOf(permission)) return true;
 

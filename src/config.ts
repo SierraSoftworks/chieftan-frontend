@@ -3,11 +3,12 @@ import {APIBase} from "./api/common";
 import {StatusAPI} from "./api/status";
 import {UsersAPI} from "./api/users";
 import {UserManager} from "./managers/user";
+import {EnvironmentManager} from "./managers/environments";
 import {CodeSnippetConfig, CodeSnippetLanguage, CodeSnippetGenerators} from "./components/code-snippets";
 
 @autoinject
 export class ConfigView {
-  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected usersAPI: UsersAPI, protected snippets: CodeSnippetGenerators, private userManager: UserManager) {
+  constructor(protected api: APIBase, protected taskSnippets: CodeSnippetConfig, protected statusAPI: StatusAPI, protected usersAPI: UsersAPI, protected snippets: CodeSnippetGenerators, private userManager: UserManager, protected envs: EnvironmentManager) {
 
   }
 
@@ -19,16 +20,34 @@ export class ConfigView {
     name: "PowerShell"
   }];
 
+  validateName(name: string) {
+    return !!name;
+  }
+
   validateURL(url: string) {
-    return this.statusAPI.test();
+    return /^(?:https?):\/\/(?:[\w@][\w.:@]+)\/?[\w\.%\-/]*$/.test(url || "");
   }
 
   validateToken(token: string) {
-    this.api.token = token;
-    return this.userManager.updateUser();
+    return /^[a-f0-9]{32}$/.test(token || "");
   }
 
   get exampleSnippet(): string {
     return this.snippets.get(this.taskSnippets.language.id).writeExample();
+  }
+
+  newEnvironment() {
+    const env = {
+      name: "New Environment",
+      url: `${window.location.protocol}//${window.location.host}/`,
+      token: ""
+    };
+
+    this.envs.environments.push(env);
+    this.envs.active = env;
+  }
+
+  saveEnvironments() {
+    this.envs.save();
   }
 }

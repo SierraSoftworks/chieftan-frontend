@@ -1,12 +1,16 @@
 import {autoinject} from "aurelia-framework";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {UsersAPI, User} from "../api/users";
+import {EnvironmentManager} from "./environments";
 import * as Raven from "raven-js";
 
 @autoinject
 export class UserManager {
-  constructor(private usersAPI: UsersAPI, private eventAggregator: EventAggregator) {
-    
+  constructor(private usersAPI: UsersAPI, private envs: EnvironmentManager, private eventAggregator: EventAggregator) {
+    this.envs.subscribe(env => {
+      this.user = null;
+      this.updateUser();
+    });
   }
 
   private _userPromise: Promise<User>;
@@ -34,6 +38,6 @@ export class UserManager {
     return this._userPromise.then(user => {
       this.user = user;
       return this;
-    });
+    }).catch(() => {});
   }
 }
