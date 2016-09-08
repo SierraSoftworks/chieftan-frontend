@@ -10,7 +10,7 @@ export class EnvironmentManager {
       const envs = JSON.parse(envStr);
       if (Array.isArray(envs)) {
         this.environments = envs;
-        this.activeEnvironment = envs.find(e => e.name === activeEnvStr);
+        this.active = envs.find(e => e.name === activeEnvStr);
       }
     } catch(err) {
 
