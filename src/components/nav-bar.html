@@ -15,7 +15,7 @@
         </div>
 
         <ul class="right hide-on-med-and-down">
-          <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}">
+          <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}" if.bind="route.settings.permission & hasPermission">
             <a href.bind="route.href">${route.title}</a>
           </li>
           <li if.bind="userManager.user">
@@ -23,6 +23,9 @@
               <i class="mi">person</i>
               ${userManager.user.name}
             </a>
+          </li>
+          <li if.bind="!userManager.user">
+            <span>Not Signed In</span>
           </li>
         </ul>
 
