@@ -34,7 +34,7 @@ export class ProjectView {
     ]);
   }
 
-  dactivate() {
+  deactivate() {
     clearTimeout(this.refreshIntervalHandle);
   }
 
