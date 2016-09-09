@@ -30,12 +30,13 @@ export class EnvironmentManager {
   set active(env: Environment) {
     this.activeEnvironment = env;
     localStorage.setItem("environments:active", env.name);
+    
+    this.notifySubscribers();
+
     this.testEnvironment(env).then(state => {
       if (env !== this.activeEnvironment) return;
       this.state = state;
     });
-    
-    this.notifySubscribers();
   }
 
   state: EnvironmentTestResult = null;
@@ -75,6 +76,7 @@ export class EnvironmentManager {
     return this.httpClient
       .createRequest("/user")
       .withBaseUrl(`${env.url}/api/v1`)
+      .withHeader("Authorization", `Token ${env.token}`)
       .asGet()
       .send().then(res => {
         return { available: true, authentication: true };
