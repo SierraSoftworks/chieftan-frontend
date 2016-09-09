@@ -51,11 +51,11 @@ export class TaskCardStyleValueConverter {
       case "NotExecuted":
         return "";
       case "Executing":
-        return "blue accent-2 white-text";
+        return "blue lighten-5";
       case "Passed":
-        return "green darken-1 white-text";
+        return "green lighten-5";
       case "Failed":
-        return "red darken-4 white-text";
+        return "red lighten-5";
     }
   }
 }

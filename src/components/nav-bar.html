@@ -1,9 +1,9 @@
 <template>
   <div class="navbar-fixed" role="navigation">
-    <nav class="red darken-4">
+    <nav class="blue-grey darken-4">
       <div class="nav-wrapper">
         <a route-href="route: projects" class="left brand-logo">
-          <i class="material-icons">call_split</i>
+          <i class="material-icons">gesture</i>
         </a>
 
         <a class="left button-collapse clickable" click.delegate="sideNav = !sideNav">
@@ -29,6 +29,9 @@
 
                   ${env.name}
                 </a>
+              </li>
+              <li>
+                <a class="black-text" route-href="route: config">Edit Environments</a>
               </li>
             </ul>
           </li>

@@ -70,7 +70,6 @@
         <div class="card-content">
           <span class="card-title">
             ${project.name}
-            <permission class="right" user.bind="user" context.bind="{ project: project.id }" levels.bind="projectPermissionLevels"></permission>
           </span>
           <p>${project.description}</p>
         </div>
@@ -78,6 +77,7 @@
         <div class="card-action">
           <a route-href="route: project; params.bind: { project: project.id }" if.bind="'project/:project' & hasPermission:{project:project.id}">Dashboard</a>
           <a href.bind="project.url">Website</a>
+          <permission class="right" user.bind="user" context.bind="{ project: project.id }" levels.bind="projectPermissionLevels"></permission>
         </div>
       </div>
     </div>

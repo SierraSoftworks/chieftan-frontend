@@ -31,14 +31,14 @@
         <div repeat.for="action of actions">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title center-align">${action.name}</h3>
-              <p class="center-align">${action.description}</p>
+              <h3 class="card-title">${action.name}</h3>
+              <p>${action.description}</p>
             </div>
 
             <div class="card-action">
               <a route-href="route: action; params.bind: { action: action.id }">Dashboard</a>
-              <a href="#" click.delegate="cloneAction(action)">Clone</a>
-              <a route-href="route: editAction; params.bind: { action: action.id }">Edit</a>
+              <a class="clickable right" click.delegate="cloneAction(action)">Clone</a>
+              <a class="right" route-href="route: editAction; params.bind: { action: action.id }">Edit</a>
             </div>
           </div>
         </div>

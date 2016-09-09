@@ -28,7 +28,7 @@
 
   <div class="row">
     <div class="col s12 m6">
-      <terminal design="powershell" name="${task.action.name} - ${task.state}" raw-value.bind="task.output || '::[warning] No output available::' | output"></terminal>
+      <terminal design="bash" name="${task.action.name} - ${task.state}" raw-value.bind="task.output || '::[warning] No output available::' | output"></terminal>
     </div>
 
     <div class="col s12 m6">

@@ -12,12 +12,7 @@
     <div class="card-action">
       <a route-href="route: task; params.bind: { task: task.id }">View</a>
       <a href.bind="task.metadata.url" target="_blank">Info</a>
-      <a class="clickable" click.delegate="runTask(task)">Run Default</a>
+      <a class="clickable right" click.delegate="runTask(task)">Run Default</a>
     </div>
   </div>
-<!--
-      <i class="mi circle blue lighten-4" if.bind="task.state == 'NotExecuted'">add_circle_outline</i>
-      <i class="mi circle light-blue accent-2 white-text" if.bind="task.state == 'Executing'">loop</i>
-      <i class="mi circle green accent-4 white-text" if.bind="task.state == 'Passed'">done</i>
-      <i class="mi circle red darken-4 white-text" if.bind="task.state == 'Failed'">new_releases</i>-->
 </template>

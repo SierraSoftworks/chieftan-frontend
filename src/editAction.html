@@ -15,7 +15,7 @@
       <i class="mi">save</i>
     </button>
     <ul>
-      <li><button class="btn-floating blue accent-2" click.delegate="addConfiguration()"><i class="material-icons">extension</i></button></li>
+      <li><button class="btn-floating blue accent-2" click.delegate="addConfiguration()"><i class="material-icons">call_split</i></button></li>
       <li if.bind="!features.http"><button class="btn-floating grey-blue accent-2" click.delegate="enableFeature('http')"><i class="material-icons">http</i></button></li>
     </ul>
   </div>
@@ -67,7 +67,7 @@
           <variable-editor value.bind="configuration.vars"></variable-editor>
         </div>
         <div class="card-action">
-          <a href="#" click.delegate="removeConfiguration(configuration)">Remove</a>
+          <a class="clickable red-text right" click.delegate="removeConfiguration(configuration)">Remove</a>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@
           </div>
         </div>
         <div class="card-action">
-          <a href="#" click.delegate="disableFeature('http')">Remove</a>
+          <a class="clickable red-text right" click.delegate="disableFeature('http')">Remove</a>
         </div>
       </div>
     </div>
