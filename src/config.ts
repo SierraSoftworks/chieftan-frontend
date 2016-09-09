@@ -37,14 +37,13 @@ export class ConfigView {
   }
 
   newEnvironment() {
-    const env = {
+    const env = new Environment({
       name: "New Environment",
       url: `${window.location.protocol}//${window.location.host}/`,
       token: ""
-    };
+    }, this.envs.httpClient);
 
     this.envs.environments.push(env);
-    this.envs.active = env;
   }
 
   removeEnvironment(env: Environment) {

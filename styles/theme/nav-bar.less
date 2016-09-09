@@ -1,5 +1,11 @@
 nav .brand-logo {
-  padding: 0 2rem;
+  position: static;
+  padding: 0 1rem;
+
+  i.mi,
+  i.material-icons {
+    margin: 0;
+  }
 }
 
 nav .button-collapse i {
@@ -8,7 +14,9 @@ nav .button-collapse i {
 }
 
 nav .breadcrumbs {
-  margin-left: 5rem; 
+  .breadcrumb {
+    font-size: 1rem;
+  }
 }
 
 .brand-logo .mi {
@@ -26,6 +34,10 @@ nav .breadcrumbs {
 
   &.active {
     transform: translateX(0px);
+  }
+
+  li > a > i {
+    height: 48px;
   }
 }
 

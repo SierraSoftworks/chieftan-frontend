@@ -2,13 +2,37 @@
   <div class="navbar-fixed" role="navigation">
     <nav class="red darken-4">
       <div class="nav-wrapper">
-        <a route-href="route: projects" class="brand-logo">
+        <a route-href="route: projects" class="left brand-logo">
           <i class="material-icons">call_split</i>
         </a>
 
-        <a class="button-collapse clickable" click.delegate="sideNav = !sideNav">
+        <a class="left button-collapse clickable" click.delegate="sideNav = !sideNav">
           <i class="material-icons">menu</i>
         </a>
+
+        <ul class="left hide-on-med-and-down">
+          <li class="dropdown">
+            <a class="clickable" dropdown>
+              <i class="mi" if.bind="!envs.active.urlValid">cloud_off</i>
+              <i class="mi" if.bind="envs.active.urlValid && !envs.active.tokenValid">cloud_queue</i>
+              <i class="mi" if.bind="envs.active.urlValid && envs.active.tokenValid">cloud_done</i>
+              
+              ${envs.active.name}
+            </a>
+
+            <ul class="dropdown-content">
+              <li repeat.for="env of envs.environments" class="${envs.active == env ? 'active' : ''}">
+                <a class="clickable black-text" click.delegate="envs.active = env">
+                  <i class="mi red-text" if.bind="!env.urlValid">cloud_off</i>
+                  <i class="mi orange-text" if.bind="env.urlValid && !env.tokenValid">cloud_queue</i>
+                  <i class="mi green-text" if.bind="env.urlValid && env.tokenValid">cloud_done</i>
+
+                  ${env.name}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
 
         <div class="breadcrumbs hide-on-med-and-down">
           <a href="${crumb.url}" class="breadcrumb" repeat.for="crumb of breadcrumbs.crumbs">${crumb.name}</a>
@@ -30,21 +54,43 @@
         </ul>
 
         <ul class="side-nav ${sideNav ? 'active' : ''}">
-          <li>
-            <a route-href="route: projects">Projects</a>
-          </li>
-          <li repeat.for="crumb of breadcrumbs.crumbs">
-            <a href="${crumb.url}">
-              ${crumb.name}
-            </a>
-          </li>
-          <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}">
-            <a href.bind="route.href">${route.title}</a>
-          </li>
           <li if.bind="userManager.user">
             <a route-href="route: user; params.bind: { id: userManager.user.id }">
               <i class="mi">person</i>
               ${userManager.user.name}
+            </a>
+          </li>
+
+          <li class="divider"></li>
+
+          <li>
+            <a route-href="route: projects">
+              <i class="mi">chevron_right</i>
+              Projects
+            </a>
+          </li>
+          <li repeat.for="crumb of breadcrumbs.crumbs">
+            <a href="${crumb.url}">
+              <i class="mi">chevron_right</i>
+              ${crumb.name}
+            </a>
+          </li>
+
+          <li class="divider"></li>
+
+          <li repeat.for="route of router.navigation" class="${route.isActive ? 'active' : ''}">
+            <a href.bind="route.href">${route.title}</a>
+          </li>
+
+          <li class="divider"></li>
+
+          <li repeat.for="env of envs.environments" class="${env == envs.active ? 'active' : ''}">
+            <a class="clickable" click.delegate="envs.active = env">
+              <i class="mi red-text" if.bind="!env.urlValid">cloud_off</i>
+              <i class="mi orange-text" if.bind="env.urlValid && !env.tokenValid">cloud_queue</i>
+              <i class="mi green-text" if.bind="env.urlValid && env.tokenValid">cloud_done</i>
+
+              ${env.name}
             </a>
           </li>
         </ul>

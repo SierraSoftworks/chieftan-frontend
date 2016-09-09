@@ -11,6 +11,9 @@ export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .globalResources([
+      "components/dropdown"
+    ])
+    .globalResources([
       "converters/boolean",
       "converters/json",
       "converters/keyValue",

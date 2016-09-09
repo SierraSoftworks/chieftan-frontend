@@ -1,0 +1,31 @@
+.dropdown {
+  position: relative;
+}
+
+[dropdown] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &+.dropdown-content {
+    &.active {
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: auto;
+      opacity: 1;
+      white-space: nowrap;
+
+      &.dropdown-left {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    .mi {
+      line-height: 1rem;
+    }
+  }
+}
