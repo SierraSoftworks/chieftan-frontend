@@ -28,6 +28,8 @@ export class EnvironmentManager {
   }
 
   set active(env: Environment) {
+    if (this.activeEnvironment === env) return;
+
     this.activeEnvironment = env;
     localStorage.setItem("environments:active", env.name);
     
@@ -122,10 +124,17 @@ export class Environment {
     return this.httpClient
       .createRequest("/user")
       .withBaseUrl(`${this._url}/api/v1`)
-      .withHeader("Authorization", `Token ${this.token}`)
+      .withHeader("Authorization", `Token ${this._token}`)
       .asGet()
       .send().then(res => {
-        return { urlValid: true, tokenValid: true };
+        if (res.isSuccess && !(res.headers.get("Content-Type") || "").indexOf("application/json")) {
+          const properties = Object.keys(res.content);
+          if (["id", "name", "email", "permissions"].every(x => !!~properties.indexOf(x))) {
+            return { urlValid: true, tokenValid: true };
+          }
+        }
+
+        return { urlValid: false, tokenValid: false };
       }, res => {
         if (res.statusCode === 401) return { urlValid: true, tokenValid: false };
         return { urlValid: false, tokenValid: false };
