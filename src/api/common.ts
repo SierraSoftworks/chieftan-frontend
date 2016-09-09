@@ -2,6 +2,7 @@ import {autoinject} from "aurelia-framework";
 import {Router} from "aurelia-router";
 import {HttpClient, HttpResponseMessage} from "aurelia-http-client";
 import {EnvironmentManager} from "../managers/environments";
+import * as Raven from "raven-js";
 
 @autoinject
 export class APIBase {
@@ -18,13 +19,20 @@ export class APIBase {
   protected handleResponse<T>(response: HttpResponseMessage) {
     const data = response.content;
 
-    if(response.statusCode !== 200) {
-      let err = new Error(data.message);
-      (<Error & {code: number}>err).code = data.code;
-      err.name = data.error;
+    if(!response.isSuccess) {
+      let err = new Error(data.message || "Server Error");
+      (<Error & {code: number}>err).code = data.code || 500;
+      err.name = data.error || "An unknown server error occured while processing your request.";
 
       if (response.statusCode === 401) this.router.navigateToRoute("config");
 
+      Raven.captureException(err, {
+        level: "error",
+        extra: {
+          request: response.requestMessage
+        }
+      });
+      
       return Promise.reject<T>(err);
     }
     
