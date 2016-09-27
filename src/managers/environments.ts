@@ -127,7 +127,10 @@ export class Environment {
       .withHeader("Authorization", `Token ${this._token}`)
       .asGet()
       .send().then(res => {
-        if (res.isSuccess && !(res.headers.get("Content-Type") || "").indexOf("application/json")) {
+        if (!res.isSuccess) return { urlValid: false, tokenValid: false };
+
+        const contentType = res.headers.get("Content-Type") || res.headers.get("content-type") || "";
+        if (!contentType.indexOf("application/json")) {
           const properties = Object.keys(res.content);
           if (["id", "name", "email", "permissions"].every(x => !!~properties.indexOf(x))) {
             return { urlValid: true, tokenValid: true };
