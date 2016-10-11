@@ -36,7 +36,7 @@ export class APIBase {
       return Promise.reject<T>(err);
     }
     
-    if (response.mimeType !== "application/json") {
+    if (response.mimeType !== "application/json" && (<HttpResponseMessage & {responseType: string;}>response).responseType !== "json") {
       let err = new Error("The server returned a response which was not of type 'application/json'.");
       (<Error & {code: number}>err).code = 500;
       err.name = "Invalid Response";
