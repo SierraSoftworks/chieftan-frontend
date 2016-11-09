@@ -38,6 +38,7 @@ const outDir = path.resolve('dist');
 const coreBundles = {
   bootstrap: [
     'aurelia-bootstrapper-webpack',
+    'aurelia-event-aggregator',
     'aurelia-polyfills',
     'aurelia-pal',
     'aurelia-pal-browser',
@@ -51,7 +52,6 @@ const coreBundles = {
     'aurelia-bootstrapper-webpack',
     'aurelia-binding',
     'aurelia-dependency-injection',
-    'aurelia-event-aggregator',
     'aurelia-framework',
     'aurelia-history',
     'aurelia-history-browser',
