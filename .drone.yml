@@ -1,14 +1,18 @@
 pipeline:
 
     npm:install:
-        image: node:6.3-slim
+        image: node:6-slim
         commands:
             - npm install --silent --progress=false
 
     npm:build:
-        image: node:6.3-slim
+        image: node:6-slim
+        environment:
+            - VERSION=$DRONE_COMMIT_SHA
+            - FLAVOUR=$DRONE_COMMIT_BRANCH
+            - SENTRY_DSN=$SENTRY_DSN
         commands:
-            - VERSION="$DRONE_COMMIT_SHA" FLAVOUR="$DRONE_COMMIT_BRANCH" SENTRY_DSN="${SENTRY_DSN}" npm run build:prod
+            - npm run build:prod
 
     docker:
         repo: chieftan/frontend
