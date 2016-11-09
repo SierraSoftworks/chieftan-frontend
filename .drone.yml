@@ -14,13 +14,11 @@ pipeline:
         commands:
             - npm run build:prod
 
-    docker:
+    docker:deploy:
+        image: plugins/docker
         repo: chieftan/frontend
         tag:
             - latest
-            - "${DRONE_COMMIT_BRANCH}"
-        username: "${DOCKER_USERNAME}"
-        password: "${DOCKER_PASSWORD}"
-        email: "${DOCKER_EMAIL}"
+            - "$DRONE_COMMIT_BRANCH"
         build_args:
-            - "VERSION=${DRONE_COMMIT_SHA}"
+            - "VERSION=$DRONE_COMMIT_SHA"
