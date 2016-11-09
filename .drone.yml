@@ -1,18 +1,18 @@
 pipeline:
 
     npm:install:
-        image: node:6-slim
+        image: node
         commands:
             - npm install --silent --progress=false
 
     npm:build:
-        image: node:6-slim
+        image: node
         environment:
             - "VERSION=${DRONE_COMMIT_SHA}"
             - "FLAVOUR=${DRONE_COMMIT_BRANCH}"
+            - "SENTRY_DSN=${SENTRY_DSN}"
         commands:
-            - export SENTRY_DSN="${SENTRY_DSN}"
-            - npm run build:prod
+            -  npm run build:prod
 
     docker:deploy:
         image: plugins/docker
