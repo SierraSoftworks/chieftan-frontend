@@ -19,6 +19,5 @@ pipeline:
         repo: chieftan/frontend
         tag:
             - latest
-            - "$DRONE_COMMIT_BRANCH"
         build_args:
             - "VERSION=$DRONE_COMMIT_SHA"
