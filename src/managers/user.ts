@@ -22,13 +22,17 @@ export class UserManager {
 
   set user(user: User) {
     this._user = user;
-    this.eventAggregator.publish("user:updated", this._user);
+    this.onUserUpdated(user);
   }
 
   get userPromise(): Promise<User> {
     return this._userPromise = this._userPromise || this.usersAPI.details().then(user => {
       this.user = user;
       return user;
+    }).catch(err => {
+      Raven.captureException(err, {
+        level: "error"
+      });
     });
   }
 
@@ -45,5 +49,18 @@ export class UserManager {
       
       return this;
     });
+  }
+
+  private onUserUpdated(user: User) {
+    this.eventAggregator.publish("user:updated", user);
+
+    if (user)
+      Raven.setUserContext({
+        username: user.name,
+        email: user.email,
+        id: user.id
+      });
+    else
+      Raven.setUserContext();
   }
 }
