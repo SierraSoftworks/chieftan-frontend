@@ -8,9 +8,9 @@ pipeline:
     npm:build:
         image: node:6-slim
         environment:
-            - VERSION=${DRONE_COMMIT_SHA}
-            - FLAVOUR=${DRONE_COMMIT_BRANCH}
-            - SENTRY_DSN=${SENTRY_DSN}
+            - "VERSION=${DRONE_COMMIT_SHA}"
+            - "FLAVOUR=${DRONE_COMMIT_BRANCH}"
+            - "SENTRY_DSN=${SENTRY_DSN}"
         commands:
             - npm run build:prod
 
