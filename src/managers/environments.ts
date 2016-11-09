@@ -103,7 +103,7 @@ export class Environment {
   urlValid: boolean = false;
   tokenValid: boolean = false;
 
-  private validateDebounceHandle: number;
+  private validateDebounceHandle: NodeJS.Timer;
 
   private queueValidate() {
     if (this.validateDebounceHandle) {

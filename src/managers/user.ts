@@ -38,6 +38,12 @@ export class UserManager {
     return this._userPromise.then(user => {
       this.user = user;
       return this;
-    }).catch(() => {});
+    }).catch(err => {
+      Raven.captureException(err, {
+        level: "error"
+      });
+      
+      return this;
+    });
   }
 }

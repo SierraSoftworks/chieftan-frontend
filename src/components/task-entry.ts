@@ -12,7 +12,7 @@ export class TaskEntry {
   }
 
   task: Task;
-  private refreshIntervalHandle: number = null;
+  private refreshIntervalHandle: NodeJS.Timer = null;
 
   unbind() {
     if (this.refreshIntervalHandle)

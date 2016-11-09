@@ -14,7 +14,7 @@ export class ProjectView {
   actions: Action[] = [];
   tasks: Task[] = [];
 
-  private refreshIntervalHandle: number = null;
+  private refreshIntervalHandle: NodeJS.Timer = null;
 
   activate(params: { project: string; }) {
     this.refreshIntervalHandle = setInterval(() => {

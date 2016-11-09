@@ -11,7 +11,7 @@ export class ProjectView {
 
   task: Task = null;
   action: Action = null;
-  private refreshIntervalHandle: number = null;
+  private refreshIntervalHandle: NodeJS.Timer = null;
 
   configuration: ActionConfiguration = null;
   private configurationChangeSubscription: Disposable;

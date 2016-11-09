@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= webpackConfig.metadata.title %></title>
+    <title>Chieftan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="<%= webpackConfig.metadata.baseUrl %>">
+    <base href="/">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- imported CSS are concatenated and added automatically -->
   </head>
@@ -53,9 +53,5 @@
       
       <div class="message">Loading Chieftan</div>
     </div>
-    <% if (webpackConfig.metadata.ENV === 'development') { %>
-    <!-- Webpack Dev Server reload -->
-    <script src="/webpack-dev-server.js"></script>
-    <% } %>
   </body>
 </html>
