@@ -10,8 +10,8 @@ pipeline:
         environment:
             - "VERSION=${DRONE_COMMIT_SHA}"
             - "FLAVOUR=${DRONE_COMMIT_BRANCH}"
-            - "SENTRY_DSN=${SENTRY_DSN}"
         commands:
+            - export SENTRY_DSN="${SENTRY_DSN}"
             - npm run build:prod
 
     docker:deploy:
