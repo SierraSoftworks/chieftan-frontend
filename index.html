@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chieftan</title>
+    <title><%- htmlWebpackPlugin.options.metadata.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/">
+    <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- imported CSS are concatenated and added automatically -->
   </head>
@@ -51,7 +51,12 @@
         </div>
       </div>
       
-      <div class="message">Loading Chieftan</div>
+      <div class="message">Loading <%- htmlWebpackPlugin.options.metadata.title %></div>
     </div>
+
+    <% if (htmlWebpackPlugin.options.metadata.ENV === 'development') { %>
+    <!-- Webpack Dev Server reload -->
+    <script src="/webpack-dev-server.js"></script>
+    <% } %>
   </body>
 </html>
